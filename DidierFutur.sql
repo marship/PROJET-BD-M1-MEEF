@@ -13,19 +13,28 @@ DROP TABLE HISTORIQUE;
 
 CREATE TABLE REALISATEUR (
     NomRealisateur varchar2(100),
-    PrenomRealisateur varchar2(100) not null,
     DateNaissanceRealisateur date,
     NationnaliteRealisateur varchar2(100),
     constraint REALISATEUR_C1_PK primary key (NomRealisateur)
 );
+INSERT INTO REALISATEUR (NomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Jackson', TO_DATE('31/10/1961', 'DD/MM/YYYY'), 'Neo-Zelandais');
+INSERT INTO REALISATEUR (NomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Walt Didier', TO_DATE('05/12/1901', 'DD/MM/YYYY'), 'Americain');
+INSERT INTO REALISATEUR (NomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Coogler', TO_DATE('23/05/1986', 'DD/MM/YYYY'), 'Americain');
 
 CREATE TABLE ACTEUR (
     NomActeur varchar2(100),
-    PrenomActeur varchar2(100) not null,
     DateNaissanceActeur date,
     NationnaliteActeur varchar2(100),
     constraint ACTEUR_C1_PK primary key (NomActeur)
 );
+INSERT INTO ACTEUR (NomActeur, DateNaissanceActeur, NationnaliteActeur) VALUES ('Didier Depp', TO_DATE('09/06/1963', 'DD/MM/YYYY'), 'Americain');
+INSERT INTO ACTEUR (NomActeur, DateNaissanceActeur, NationnaliteActeur) VALUES ('Didier Mortensen', TO_DATE('20/10/1958', 'DD/MM/YYYY'), 'Americain');
+INSERT INTO ACTEUR (NomActeur, DateNaissanceActeur, NationnaliteActeur) VALUES ('Sean Didier', TO_DATE('25/02/1971', 'DD/MM/YYYY'), 'Americain');
+INSERT INTO ACTEUR (NomActeur, DateNaissanceActeur, NationnaliteActeur) VALUES ('Didier Bloom', TO_DATE('13/01/1977', 'DD/MM/YYYY'), 'Americain');
+INSERT INTO ACTEUR (NomActeur, DateNaissanceActeur, NationnaliteActeur) VALUES ('Didier McKellen', TO_DATE('25/04/1939', 'DD/MM/YYYY'), 'Britannique');
+INSERT INTO ACTEUR (NomActeur, DateNaissanceActeur, NationnaliteActeur) VALUES ('Didier Bean', TO_DATE('17/04/1959', 'DD/MM/YYYY'), 'Britannique');
+INSERT INTO ACTEUR (NomActeur, DateNaissanceActeur, NationnaliteActeur) VALUES ('Chadwick Didier', TO_DATE('29/11/1976', 'DD/MM/YYYY'), 'Americain');
+INSERT INTO ACTEUR (NomActeur, DateNaissanceActeur, NationnaliteActeur) VALUES ('Lupita Didier', TO_DATE('1/03/1983', 'DD/MM/YYYY'), 'Mexicain');
 
 CREATE TABLE FILM (
 	NomFilm varchar2(100),
