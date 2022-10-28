@@ -170,12 +170,13 @@ public class App {
 				String picto = sc.nextLine();
 				System.out.flush();
 				cliD.nouveauMembre(mail, nom, prenom, adresse, naiss, telephone, mdp);
-				cliD.nouvelleCarte(mail, num, date, picto);
+				cliD.nouvelleCarteBanque(mail, num, date, picto);
+				s1.close();
 				System.out.println("Et voilà, vous êtes membre !");
 				System.out.println("Voulez vous une carte d'abonnement ?\nC'est gratuit et vous payerez moins cher !\nRepondez par o/n");
 				String choix = sc.nextLine();
 				if(choix.equals("o") || choix.equals("O")){
-					carteAbonnement();
+					creationCarteAbonnement(mail);
 				}
 			}
 			else{
@@ -185,7 +186,124 @@ public class App {
 		}
 	}
 
-	private static void changementInformations() {
+	private static void creationCarteAbonnement(String mail){
+		System.out.println("Merci de bien vouloir faire uen carte abonnée !");
+		Session s1 = new Session();
+		s1.open();
+		ClientDAO cliD = new ClientDAO(s1.getSession());
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Comment voulez vous nommer cette carte ?");
+		String nomCarte = sc.nextLine();
+		System.out.flush();
+		while(cliD.nomCartePrit(nomCarte, mail)){
+			System.out.println("Vous avez déjà une carte avec ce nom !\nVeuillez en choisir un autre !");
+			nomCarte = sc.nextLine();
+			System.out.flush();
+		}
+		System.out.println("Le montant minimun pour la creation d'une carte est de 10€, combien voulez vous mettre en plus ?");
+		int montant = sc.nextInt();
+		System.out.flush();
+		while(montant < 0){
+			System.out.println("Veuillez mettre un montant nul ou positif !");
+			montant = sc.nextInt();
+			System.out.flush();
+		}
+		cliD.nouvelleCarteAbo(mail, nomCarte, montant);
+		System.out.println("Et voilà ! Merci beaucoup de nous faire confiance ;)\nTout est 100000% sécurisé n\'ayez pas peur ^^ !");
+		s1.close();
+	}
+
+	private static void changementInformations(){
+		System.out.println("Donnez votre adresse mail, ou tappez n pour annuler et revenir au menu principal:");
+		Scanner sc = new Scanner(System.in);
+		String mail = sc.nextLine();
+		System.out.flush();
+		if(!mail.equals("n")){
+			System.out.println("Entrez votre mot de passe");
+			String mdp = sc.nextLine();
+			System.out.flush();
+			ClientDAO cliD = new ClientDAO(s1.getSession());
+			if(cliD.connexion(mail, mdp)){
+				System.out.println("Informations non valides !");
+				changementInformations();
+			}
+			else{
+				System.out.println("Que voulez vous modifier ?");
+				System.out.println("[1] Nom");
+				System.out.println("[2] Prenom");
+				System.out.println("[3] Mail");
+				System.out.println("[4] Adresse");
+				System.out.println("[5] Telephone");
+				System.out.println("[6] Carte Bancaire");
+				System.out.println("[7] Carte Abonnés");
+				System.out.println("[0] Annuler et revenir au menu principal");
+				int choix = sc.nextInt();
+				System.out.flush();
+				switch (choix) {
+					case 1:
+						System.out.println("Entrez votre nouveau nom");
+						String nom = sc.nextLine();
+						System.out.flush();
+						cliD.majNom(mail, nom);
+						break;
+					case 2:
+						System.out.println("Entrez votre nouveau prenom");
+						String prenom = sc.nextLine();
+						System.out.flush();
+						cliD.majPrenom(mail, prenom);
+						break;
+					case 3:
+						System.out.println("Entrez votre nouveau mail");
+						String mail2 = sc.nextLine();
+						System.out.flush();
+						if(cliD.mailValide(mail2)){
+							cliD.majMail(mail2, prenom);
+						}
+						else{
+							System.out.println("Ce mail est déjà utilisé par une autre personne !");
+						}
+						break;
+					case 4:
+						System.out.println("Entrez votre nouvelle adresse");
+						String adresse = sc.nextLine();
+						System.out.flush();
+						cliD.majAdresse(mail, adresse);
+						break;
+					case 5:
+						System.out.println("Entrez votre nouveau numéro de telephone");
+						String tel = sc.nextLine();
+						System.out.flush();
+						cliD.majTel(mail, tel);
+						break;
+					case 6:
+						System.out.println("Entrez votre nouvelle carte bancaire ;)\nNous vous rappelons que tout est sécurisé !");
+						System.out.println("Numéro de Carte Bancaire :");
+						String num = sc.nextLine();
+						System.out.flush();
+						System.out.println("Date d'expiration de la carte Bancaire :");
+						String date = sc.nextLine();
+						System.out.flush();
+						System.out.println("Pictogramme de la carte bancaire :");
+						String picto = sc.nextLine();
+						System.out.flush();
+						cliD.suppresionCarte(mail);
+						cliD.nouvelleCarteBanque(mail, num, date, picto);
+						break;
+					case 7:
+						modifCarteAbo(mail);
+						break;
+					default:
+						menuPrincipal();
+						break;
+				}
+			}
+		}
+		else{
+			menuPrincipal();
+		}
+	}
+
+	private static void modifCarteAbo(String mail) {
 	}
 
 }
