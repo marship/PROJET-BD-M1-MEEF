@@ -2,6 +2,7 @@ package dao;
 
 import modele.Gardien;
 import modele.Cage;
+import modele.Client;
 import modele.Film;
 
 import java.sql.Connection;
@@ -39,8 +40,8 @@ public class EmpruntDAO extends DAO<Gardien> {
 		return nbEmprunt;
 	}
 
-	public Film listeEmprunt(Object g) {
-		Film film = null;
+	public Client listeEmprunt(Object g) {
+		Client client = null;
 
 		try (PreparedStatement lesFilms = conn
 				.prepareStatement("SELECT NomFilm FROM EMPRUNT WHERE AdresseMailClient = ?");) {
@@ -48,15 +49,31 @@ public class EmpruntDAO extends DAO<Gardien> {
 			lesFilms.setString(1, (String) g);
 			ResultSet resultSet = lesFilms.executeQuery();
 
+			client = new Client();
 			while (resultSet.next()) {
-				
+				Film f = new Film();
+				f.setnomFilm(resultSet.getString(1));
+				client.addFilm(f);
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		return film;
+		return client;
+	}
+
+	public void rendreFilm(String mail, String nomF) {
+		try (PreparedStatement suppFilm = conn
+				.prepareStatement("DELETE FROM EMPRUNT WHERE AdresseMailClient = ? AND NomFilm = ?");) {
+
+			suppFilm.setString(1, (String) mail);
+			suppFilm.setString(2, (String) nomF);
+			suppFilm.executeQuery();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
