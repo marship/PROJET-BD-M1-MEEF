@@ -6,9 +6,10 @@ import java.util.Scanner;
 
 import dao.EmpruntDAO;
 import dao.GardienDAO;
+import modele.Client;
 import modele.Film;
 import modele.Gardien;
-
+import utils.LectureClavier;
 import utils.Session;
 
 public class App {
@@ -21,15 +22,13 @@ public class App {
 
 	private static void menuPrincipal(){
 		System.out.println("Que souhaitez-vous faire ?");
-		Scanner sc = new Scanner(System.in);
 		int choix;
 		System.out.println("[1] Louer un film");
 		System.out.println("[2] Rendre un film");
 		System.out.println("[3] Gèrer mon compte");
 		System.out.println("[0] Quitter l'application.");
-		choix = sc.nextInt();
+		choix = LectureClavier.lireEntier("");
 		System.out.flush();
-		sc.close();
 		switch (choix) {
 			case 1:
 				location();
@@ -54,23 +53,21 @@ public class App {
 		Session s1 = new Session();
 		s1.open();
 		System.out.println("Donnez l'adresse mail de la personne ayant emprunter le film :");
-		Scanner sc = new Scanner(System.in);
-		System.out.flush();
-		String mail = sc.nextLine();
+		String mail = LectureClavier.lireChaine();
+		System.out.println(mail);
 		System.out.flush();
 		EmpruntDAO empD = new EmpruntDAO(s1.getSession());
 		int nbEmprunt = empD.nbEmprunt(mail);
 		System.out.println(nbEmprunt);
-		/* 
-		Film filmEmprunt = empD.listeEmprunt(mail);
-		String nomF;
+		Client filmEmprunt = empD.listeEmprunt(mail);
+		String nomF = "";
 		switch (nbEmprunt) {
 			case 0:
 				System.out.println("Aucun film trouvé pour cette adresse mail.\nRetour à la page d'accueil.");
 				break;
 			case 1:
 				System.out.print("Merci de rendre le film :");
-				for (Iterator<Film> it = filmEmprunt.getFilms(); it.hasNext();) {
+				for (Iterator<Film> it = filmEmprunt.getFilmsLoues().iterator(); it.hasNext();) {
 					nomF = it.next().getnomFilm();
 					System.out.println(nomF);
 				}
@@ -78,33 +75,28 @@ public class App {
 				System.out.println("Merci d'avoir rendu " + nomF + ", passez une bonne journée.\nRetour à la page d'accueil.");
 				break;
 			default:
-				System.out.print("Voici la liste des films que vous avez empruntés.\nMerci d'écrire le numéro du film que vous rendez.");
+				System.out.println("Voici la liste des films que vous avez empruntés.\nMerci d'écrire le numéro du film que vous rendez.");
 				int nb = 1;
-				for (Iterator<Film> it = filmEmprunt.getFilms(); it.hasNext();) {
+				String[] nomFL = new String[nbEmprunt];
+				for (Iterator<Film> it = filmEmprunt.getFilmsLoues().iterator(); it.hasNext();) {
 					nomF = it.next().getnomFilm();
 					System.out.println("[" + nb + "] "+ nomF);
+					nomFL[nb-1] = nomF;
 					nb++;
 				}
-				nb = sc.nextInt();
+				nb = LectureClavier.lireEntier("");
 				System.out.flush();
-				if(nb >= 1 && nb <= nbEmprunt){
-					int num = 1;
-					for (Iterator<Film> it = filmEmprunt.getFilms(); it.hasNext();) {
-						if(num == nb){
-							nomF = it.next().getnomFilm();
-						}
-						num++;
-					}
-					System.out.println("Vous rendez : " + nomF);
-					empD.rendreFilm(mail, nomF);
-					System.out.println("Merci d'avoir rendu " + nomF + ", passez une bonne journée.\nRetour à la page d'accueil.");
+				filmEmprunt = empD.listeEmprunt(mail);
+				if(nb >= 0 && nb <= nbEmprunt){
+					System.out.println("Vous rendez : " + nomFL[nb-1]);
+					empD.rendreFilm(mail, nomFL[nb-1]);
+					System.out.println("Merci d'avoir rendu " + nomFL[nb-1] + ", passez une bonne journée.\nRetour à la page d'accueil.");
 				}
 				else{
 					System.out.println("Le numéro du film n'est pas valide.\nRetour à la page d'accueil.");
 				}
 				break;
 		}
-		*/
 		s1.close();
 		menuPrincipal();
 	}
