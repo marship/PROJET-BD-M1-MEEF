@@ -2,6 +2,7 @@ package dao;
 
 import modele.Gardien;
 import modele.Cage;
+import modele.Carte;
 import modele.Client;
 import modele.Film;
 
@@ -57,7 +58,7 @@ public class ClientDAO extends DAO<Gardien> {
 						"SELECT COUNT (*) FROM CARTE_ABONNEMENT WHERE AdresseMailClient = ? AND NomCarteAbonnement = ?");) {
 
 			lesClients.setString(1, nomCarte);
-			lesClients.setString(1, mail);
+			lesClients.setString(2, mail);
 			ResultSet resultSet = lesClients.executeQuery();
 
 			int nbClient = 0;
@@ -105,6 +106,74 @@ public class ClientDAO extends DAO<Gardien> {
 			e.printStackTrace();
 		}
 
+		return sortie;
+	}
+
+	public void majNomCarte(String mail, String nomA, String nomN) {
+		try (PreparedStatement lesClients = conn
+				.prepareStatement(
+						"UPDATE CARTE_ABONNEMENT SET NomCarteAbonnement = ? WHERE AdresseMailClient = ? AND NomCarteAbonnement = ?");) {
+
+			lesClients.setString(1, nomN);
+			lesClients.setString(2, mail);
+			lesClients.setString(3, nomA);
+
+			lesClients.executeQuery();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void majSoldeCarte(String mail, String nomC, int somme) {
+		try (PreparedStatement lesClients = conn
+				.prepareStatement(
+						"UPDATE CARTE_ABONNEMENT SET SoldeCarteAbonnement = SoldeCarteAbonnement + ? WHERE AdresseMailClient = ? AND NomCarteAbonnement = ?");) {
+
+			lesClients.setInt(1, somme);
+			lesClients.setString(2, mail);
+			lesClients.setString(3, nomC);
+
+			lesClients.executeQuery();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void majAgeCarte(String mail, String nomC, int age) {
+		try (PreparedStatement lesClients = conn
+				.prepareStatement(
+						"UPDATE CARTE_ABONNEMENT SET AgePropietaireCarteAbonnement = ? WHERE AdresseMailClient = ? AND NomCarteAbonnement = ?");) {
+
+			lesClients.setInt(1, age);
+			lesClients.setString(2, mail);
+			lesClients.setString(3, nomC);
+
+			lesClients.executeQuery();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public boolean suppCarte(String mail, String nomC, String mdp) {
+		boolean sortie = false;
+		try (PreparedStatement lesClients = conn
+				.prepareStatement(
+						"DELETE FROM CARTE_ABONNEMENT WHERE AdresseMailClient = ? AND NomCarteAbonnement = ?");) {
+
+			lesClients.setString(1, mail);
+			lesClients.setString(2, nomC);
+
+			if(connexion(mail, mdp)){
+				lesClients.executeQuery();
+				sortie = true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return sortie;
 	}
 
@@ -302,6 +371,61 @@ public class ClientDAO extends DAO<Gardien> {
 		}
 
 		return client;
+	}
+
+	public Client listeCarte(Object g) {
+		Client client = null;
+
+		try (PreparedStatement lesCartes = conn
+				.prepareStatement(
+						"SELECT NomCarteAbonnement, SoldeCarteAbonnement, AgePropietaireCarteAbonnement FROM CARTE_ABONNEMENT WHERE AdresseMailClient = ?");) {
+
+			lesCartes.setString(1, (String) g);
+			ResultSet resultSet = lesCartes.executeQuery();
+
+			client = new Client();
+			int nbCarte = 0;
+			while (resultSet.next()) {
+				Carte c = new Carte();
+				c.setnomCarteAbonnement(resultSet.getString(1));
+				c.setadresseMailClient((String) g);
+				c.setsoldeCarteAbonnement(resultSet.getInt(2));
+				c.setagePropietaireCarteAbonnement(resultSet.getInt(3));
+				client.addCarte(c);
+				nbCarte++;
+			}
+			client.setnbCarte(nbCarte);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return client;
+	}
+
+	public Carte avoirLaCarte(String mail, String nomC) {
+		Carte carte = null;
+
+		try (PreparedStatement lesCartes = conn
+				.prepareStatement(
+						"SELECT SoldeCarteAbonnement, AgePropietaireCarteAbonnement FROM CARTE_ABONNEMENT WHERE AdresseMailClient = ? AND NomCarteAbonnement = ?");) {
+
+			lesCartes.setString(1, mail);
+			lesCartes.setString(2, nomC);
+			ResultSet resultSet = lesCartes.executeQuery();
+
+			carte = new Carte();
+			if (resultSet.next()) {
+				carte.setnomCarteAbonnement(nomC);
+				carte.setadresseMailClient(mail);
+				carte.setsoldeCarteAbonnement(resultSet.getInt(1));
+				carte.setagePropietaireCarteAbonnement(resultSet.getInt(2));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return carte;
 	}
 
 	public void rendreFilm(String mail, String nomF) {
