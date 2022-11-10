@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.Scanner;
 
+import dao.EmpruntDAO;
 import dao.GardienDAO;
 import modele.Film;
 import modele.Gardien;
@@ -37,7 +38,7 @@ public class App {
 				rendre();
 				break;
 			case 3:
-				gestion();
+				//gestion();
 				break;
 			default:
 				break;
@@ -54,10 +55,13 @@ public class App {
 		s1.open();
 		System.out.println("Donnez l'adresse mail de la personne ayant emprunter le film :");
 		Scanner sc = new Scanner(System.in);
+		System.out.flush();
 		String mail = sc.nextLine();
 		System.out.flush();
 		EmpruntDAO empD = new EmpruntDAO(s1.getSession());
 		int nbEmprunt = empD.nbEmprunt(mail);
+		System.out.println(nbEmprunt);
+		/* 
 		Film filmEmprunt = empD.listeEmprunt(mail);
 		String nomF;
 		switch (nbEmprunt) {
@@ -100,10 +104,12 @@ public class App {
 				}
 				break;
 		}
+		*/
 		s1.close();
 		menuPrincipal();
 	}
 
+	/* 
 	private static void gestion(){
 		System.out.println("Que voulez vous faire ?");
 		System.out.println("[1] Gerer les informations de mon compte");
@@ -222,6 +228,7 @@ public class App {
 			System.out.println("Entrez votre mot de passe");
 			String mdp = sc.nextLine();
 			System.out.flush();
+			Session s1 = new Session();
 			ClientDAO cliD = new ClientDAO(s1.getSession());
 			if(cliD.connexion(mail, mdp)){
 				System.out.println("Informations non valides !");
@@ -305,5 +312,8 @@ public class App {
 
 	private static void modifCarteAbo(String mail) {
 	}
+
+
+	*/
 
 }
