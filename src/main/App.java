@@ -8,6 +8,7 @@ import dao.ClientDAO;
 import dao.EmpruntDAO;
 import dao.GardienDAO;
 import dao.LocationDAO;
+import modele.Carte;
 import modele.Client;
 import modele.Film;
 import modele.Gardien;
@@ -18,6 +19,7 @@ import utils.Session;
 public class App {
 
 	static Session s1;
+
 	public static void main(String args[]) {
 		/* Menu utilisateur */
 		System.out.println("Bienvenue sur Didier Futur !");
@@ -53,38 +55,38 @@ public class App {
 		System.out.println("Merci et à bientôt !");
 	}
 
-	private static void location(){
-        System.out.println("Que souhaitez-vous faire ?");
-        int choix;
-        System.out.println("[1] Derniers films en date");
-        System.out.println("[2] Recherche de film");
-        System.out.println("[0] Retour");
-        choix = LectureClavier.lireEntier("");
-        System.out.flush();
-        switch (choix){
-            case 1:
-                System.out.println("Voilà les derniers films ajoutés au système : ");
-                LocationDAO locD = new LocationDAO(s1.getSession());
-                RechercheFilm recherche = locD.dernierFilmAjoute();
-                String nomF = "";
-                String[] nomFL = new String[5];
-                int nb = 1;
-                for (Iterator<Film> it = recherche.getFilms().iterator(); it.hasNext();) {
-                    nomF = it.next().getnomFilm();
-                    System.out.println("[" + nb + "] "+ nomF);
-                    nomFL[nb-1] = nomF;
-                    nb++;
-                }
-                break;
-            case 2:
-                break;
-            case 0:
-                break;
-            default:
-                break;
-        }
-        menuPrincipal();
-    }
+	private static void location() {
+		System.out.println("Que souhaitez-vous faire ?");
+		int choix;
+		System.out.println("[1] Derniers films en date");
+		System.out.println("[2] Recherche de film");
+		System.out.println("[0] Retour");
+		choix = LectureClavier.lireEntier("");
+		System.out.flush();
+		switch (choix) {
+			case 1:
+				System.out.println("Voilà les derniers films ajoutés au système : ");
+				LocationDAO locD = new LocationDAO(s1.getSession());
+				RechercheFilm recherche = locD.dernierFilmAjoute();
+				String nomF = "";
+				String[] nomFL = new String[5];
+				int nb = 1;
+				for (Iterator<Film> it = recherche.getFilms().iterator(); it.hasNext();) {
+					nomF = it.next().getnomFilm();
+					System.out.println("[" + nb + "] " + nomF);
+					nomFL[nb - 1] = nomF;
+					nb++;
+				}
+				break;
+			case 2:
+				break;
+			case 0:
+				break;
+			default:
+				break;
+		}
+		menuPrincipal();
+	}
 
 	private static void rendre() {
 		System.out.println("Donnez l'adresse mail de la personne ayant emprunter le film :");
@@ -123,8 +125,7 @@ public class App {
 				}
 				nb = LectureClavier.lireEntier("");
 
-				filmEmprunt = empD.listeEmprunt(mail);
-				if (nb >= 0 && nb <= nbEmprunt) {
+				if (nb >= 1 && nb <= nbEmprunt) {
 					System.out.println("Vous rendez : " + nomFL[nb - 1]);
 					empD.rendreFilm(mail, nomFL[nb - 1]);
 					System.out.println("Merci d'avoir rendu " + nomFL[nb - 1]
@@ -197,7 +198,7 @@ public class App {
 
 				cliD.nouveauMembre(mail, nom, prenom, adresse, naiss, telephone, mdp);
 				cliD.nouvelleCarteBanque(mail, num, date, picto);
-				
+
 				System.out.println("Et voilà, vous êtes membre !");
 				System.out.println(
 						"Voulez vous une carte d'abonnement ?\nC'est gratuit et vous payerez moins cher !\nRepondez par o/n");
@@ -209,8 +210,7 @@ public class App {
 				System.out.println("Cette adresse mail est déjà prise !");
 				creationCompte();
 			}
-		}
-		else{
+		} else {
 			menuPrincipal();
 		}
 	}
@@ -238,7 +238,7 @@ public class App {
 		montant = montant + 10;
 
 		System.out.println(
-			"Veuillez entrer l'age du possesseur de la carte : ");
+				"Veuillez entrer l'age du possesseur de la carte : ");
 		int age = LectureClavier.lireEntier("");
 
 		cliD.nouvelleCarteAbo(mail, nomCarte, montant, age);
@@ -338,6 +338,86 @@ public class App {
 	}
 
 	private static void modifCarteAbo(String mail) {
-	}
+		System.out.println("Que voulez vous faire ?");
+		System.out.println("[1] Faire une nouvelle carte");
+		System.out.println("[2] Modifier mes cartes");
+		System.out.println("[0] Annuler");
+		int choix = LectureClavier.lireEntier("");
+		switch (choix) {
+			case 1:
+				creationCarteAbonnement(mail);
+				break;
+			case 2:
+				ClientDAO cliD = new ClientDAO(s1.getSession());
+				Client client = cliD.listeCarte(mail);
+				System.out.println(
+						"Voici la liste des cartes que vous avez possédez.\nMerci d'écrire le numéro de la carte que vous voulez modifer.");
+				int nb = 1;
+				String[] nomCL = new String[client.getnbCarte()];
+				String nomC;
+				for (Iterator<Carte> it = client.getCarteAbo().iterator(); it.hasNext();) {
+					nomC = it.next().getnomCarteAbonnement();
+					System.out.println("[" + nb + "] " + nomC);
+					nomCL[nb - 1] = nomC;
+					nb++;
+				}
+				nb = LectureClavier.lireEntier("");
 
+				if (nb >= 1 && nb <= client.getnbCarte()) {
+					Carte carte = cliD.avoirLaCarte(mail, nomCL[nb - 1]);
+					System.out.println("Carte de : " + carte.getnomCarteAbonnement());
+					System.out.println("Solde sur la carte : " + carte.getsoldeCarteAbonnement());
+					System.out.println("Age du propriétaire : " + carte.getagePropietaireCarteAbonnement());
+					System.out.println("\nQue voulez vous faire ?");
+					System.out.println("[1] Modifier le nom sur la carte");
+					System.out.println("[2] Créditer la carte");
+					System.out.println("[3] Modifier l\'age du propriétaire de la carte");
+					System.out.println("[4] Supprimer la carte");
+					System.out.println("[0] Annuler");
+					choix = LectureClavier.lireEntier("");
+					switch (choix) {
+						case 1:
+							System.out.println("Entrez le nouveau nom sur la carte :");
+							String nom = LectureClavier.lireChaine();
+
+							if (!cliD.nomCartePrit(mail, carte.getnomCarteAbonnement())) {
+								cliD.majNomCarte(mail, carte.getnomCarteAbonnement(), nom);
+							} else {
+								System.out.println("Vous avez déjà une carte avec ce nom !");
+							}
+							break;
+
+						case 2:
+							System.out.println("Entrez le montant à créditer :");
+							int somme = LectureClavier.lireEntier("");
+							cliD.majSoldeCarte(mail, carte.getnomCarteAbonnement(), somme);
+							break;
+
+						case 3:
+							System.out.println("Entrez le nouvel age du propriétaire :");
+							int age = LectureClavier.lireEntier("");
+							cliD.majAgeCarte(mail, carte.getnomCarteAbonnement(), age);
+							break;
+
+						case 4:
+							System.out.println("Entrez votre mot de passe par sécurité");
+							String mdp = LectureClavier.lireChaine();
+							if(cliD.suppCarte(mail, carte.getnomCarteAbonnement(), mdp)){
+								System.out.println("La carte à été supprimée");
+							}
+							else{
+								System.out.println("Mauvais mot de passe, impossible de supprimer la carte");
+							}
+
+						default:
+							break;
+					}
+				} else {
+					System.out.println("Le numéro de la carte n'est pas valide.\nRetour à la page d'accueil.");
+				}
+				break;
+			default:
+				break;
+		}
+	}
 }
