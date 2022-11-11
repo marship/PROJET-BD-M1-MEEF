@@ -1,9 +1,10 @@
 package dao;
 
 import modele.Gardien;
+import modele.Genre;
+import modele.Personne;
 import modele.RechercheFilm;
 import modele.Cage;
-import modele.RechercheFilm;
 import modele.Film;
 
 import java.sql.Connection;
@@ -25,7 +26,8 @@ public class LocationDAO extends DAO<Gardien> {
 		RechercheFilm recherche = null;
 
 		try (PreparedStatement lesFilms = conn
-				.prepareStatement("SELECT NomFilm FROM (SELECT * FROM FILM ORDER BY DateAjoutFilm DESC) WHERE rownum <= 5")){
+				.prepareStatement(
+						"SELECT NomFilm FROM (SELECT * FROM FILM ORDER BY DateAjoutFilm DESC) WHERE rownum <= 5")) {
 
 			ResultSet resultSet = lesFilms.executeQuery();
 
@@ -35,6 +37,250 @@ public class LocationDAO extends DAO<Gardien> {
 				f.setnomFilm(resultSet.getString(1));
 				recherche.addFilm(f);
 			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return recherche;
+	}
+
+	public RechercheFilm topLocation() {
+		RechercheFilm recherche = null;
+
+		try (PreparedStatement lesFilms = conn
+				.prepareStatement(
+						"SELECT NomFilm FROM (SELECT * FROM FILM ORDER BY NombreTotalLocationFilm DESC) WHERE rownum <= 5")) {
+
+			ResultSet resultSet = lesFilms.executeQuery();
+
+			recherche = new RechercheFilm();
+			while (resultSet.next()) {
+				Film f = new Film();
+				f.setnomFilm(resultSet.getString(1));
+				recherche.addFilm(f);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return recherche;
+	}
+
+	public RechercheFilm rechercheParNom(String nom) {
+		RechercheFilm recherche = null;
+
+		try (PreparedStatement lesFilms = conn
+				.prepareStatement(
+						"SELECT NomFilm FROM FILM WHERE NomFilm LIKE ?")) {
+
+			nom = "%" + nom + "%";
+			lesFilms.setString(1, nom); 
+
+			ResultSet resultSet = lesFilms.executeQuery();
+
+			recherche = new RechercheFilm();
+			int nbFilm = 0;
+			while (resultSet.next()) {
+				Film f = new Film();
+				f.setnomFilm(resultSet.getString(1));
+				recherche.addFilm(f);
+				nbFilm++;
+			}
+			recherche.setNbFilm(nbFilm);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return recherche;
+	}
+
+	public RechercheFilm rechercheParGenre(String nom) {
+		RechercheFilm recherche = null;
+
+		try (PreparedStatement lesFilms = conn
+				.prepareStatement(
+						"SELECT NomFilm FROM CATEGORIE WHERE NomGenre = ?")) {
+
+			lesFilms.setString(1, nom); 
+
+			ResultSet resultSet = lesFilms.executeQuery();
+
+			recherche = new RechercheFilm();
+			int nbFilm = 0;
+			while (resultSet.next()) {
+				Film f = new Film();
+				f.setnomFilm(resultSet.getString(1));
+				recherche.addFilm(f);
+				nbFilm++;
+			}
+			recherche.setNbFilm(nbFilm);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return recherche;
+	}
+
+	public RechercheFilm rechercheParLimiteAge(int lim) {
+		RechercheFilm recherche = null;
+
+		try (PreparedStatement lesFilms = conn
+				.prepareStatement(
+						"SELECT NomFilm FROM FILM WHERE LimiteAgeFilm >= ?")) {
+
+			lesFilms.setInt(1, lim); 
+
+			ResultSet resultSet = lesFilms.executeQuery();
+
+			recherche = new RechercheFilm();
+			int nbFilm = 0;
+			while (resultSet.next()) {
+				Film f = new Film();
+				f.setnomFilm(resultSet.getString(1));
+				recherche.addFilm(f);
+				nbFilm++;
+			}
+			recherche.setNbFilm(nbFilm);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return recherche;
+	}
+
+	public RechercheFilm rechercheParActeur(String nom) {
+		RechercheFilm recherche = null;
+
+		try (PreparedStatement lesFilms = conn
+				.prepareStatement(
+						"SELECT NomFilm FROM JOUER WHERE NomPrenomActeur LIKE ?")) {
+
+			nom = "%" + nom + "%";
+			lesFilms.setString(1, nom); 
+
+			ResultSet resultSet = lesFilms.executeQuery();
+
+			recherche = new RechercheFilm();
+			int nbFilm = 0;
+			while (resultSet.next()) {
+				Film f = new Film();
+				f.setnomFilm(resultSet.getString(1));
+				recherche.addFilm(f);
+				nbFilm++;
+			}
+			recherche.setNbFilm(nbFilm);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return recherche;
+	}
+
+	public RechercheFilm rechercheParRealisateur(String nom) {
+		RechercheFilm recherche = null;
+
+		try (PreparedStatement lesFilms = conn
+				.prepareStatement(
+						"SELECT NomFilm FROM FILM WHERE NomPrenomRealisateur LIKE ?")) {
+
+			nom = "%" + nom + "%";
+			lesFilms.setString(1, nom); 
+
+			ResultSet resultSet = lesFilms.executeQuery();
+
+			recherche = new RechercheFilm();
+			int nbFilm = 0;
+			while (resultSet.next()) {
+				Film f = new Film();
+				f.setnomFilm(resultSet.getString(1));
+				recherche.addFilm(f);
+				nbFilm++;
+			}
+			recherche.setNbFilm(nbFilm);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return recherche;
+	}
+
+	public RechercheFilm listeGenre(){
+		RechercheFilm recherche = null;
+
+		try (PreparedStatement lesGenres = conn
+				.prepareStatement(
+						"SELECT NomGenre FROM GENRE")) {
+
+			ResultSet resultSet = lesGenres.executeQuery();
+
+			recherche = new RechercheFilm();
+			int nbGenre = 0;
+			while (resultSet.next()) {
+				Genre g = new Genre();
+				g.setnomGenre(resultSet.getString(1));
+				recherche.addGenre(g);
+				nbGenre++;
+			}
+			recherche.setnbGenre(nbGenre);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return recherche;
+	}
+
+	public RechercheFilm listeActeur(){
+		RechercheFilm recherche = null;
+
+		try (PreparedStatement lesActeurs = conn
+				.prepareStatement(
+						"SELECT NomPrenomActeur FROM ACTEUR")) {
+
+			ResultSet resultSet = lesActeurs.executeQuery();
+
+			recherche = new RechercheFilm();
+			int nbActeurs = 0;
+			while (resultSet.next()) {
+				Personne a = new Personne();
+				a.setnomPersonne(resultSet.getString(1));
+				recherche.addActeur(a);
+				nbActeurs++;
+			}
+			recherche.setnbActeur(nbActeurs);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return recherche;
+	}
+
+	public RechercheFilm listeRealisateur(){
+		RechercheFilm recherche = null;
+
+		try (PreparedStatement lesRealisateurs = conn
+				.prepareStatement(
+						"SELECT NomPrenomRealisateur FROM REALISATEUR")) {
+
+			ResultSet resultSet = lesRealisateurs.executeQuery();
+
+			recherche = new RechercheFilm();
+			int nbRealisateur = 0;
+			while (resultSet.next()) {
+				Personne r = new Personne();
+				r.setnomPersonne(resultSet.getString(1));
+				recherche.addRealisateur(r);
+				nbRealisateur++;
+			}
+			recherche.setnbActeur(nbRealisateur);
 
 		} catch (SQLException e) {
 			e.printStackTrace();

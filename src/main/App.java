@@ -12,6 +12,8 @@ import modele.Carte;
 import modele.Client;
 import modele.Film;
 import modele.Gardien;
+import modele.Genre;
+import modele.Personne;
 import modele.RechercheFilm;
 import utils.LectureClavier;
 import utils.Session;
@@ -52,7 +54,6 @@ public class App {
 			default:
 				break;
 		}
-		System.out.println("Merci et à bientôt !");
 	}
 
 	private static void location() {
@@ -63,22 +64,161 @@ public class App {
 		System.out.println("[0] Retour");
 		choix = LectureClavier.lireEntier("");
 		System.out.flush();
+		String nomFL[];
+		LocationDAO locD = new LocationDAO(s1.getSession());
+		RechercheFilm recherche;
+		Film filmVoulu;
 		switch (choix) {
 			case 1:
 				System.out.println("Voilà les derniers films ajoutés au système : ");
-				LocationDAO locD = new LocationDAO(s1.getSession());
-				RechercheFilm recherche = locD.dernierFilmAjoute();
-				String nomF = "";
-				String[] nomFL = new String[5];
-				int nb = 1;
-				for (Iterator<Film> it = recherche.getFilms().iterator(); it.hasNext();) {
-					nomF = it.next().getnomFilm();
-					System.out.println("[" + nb + "] " + nomF);
-					nomFL[nb - 1] = nomF;
-					nb++;
-				}
+				recherche = locD.dernierFilmAjoute();
+				nomFL = afficherRechercheFilm(recherche, 5);
 				break;
 			case 2:
+				System.out.println("Comment voulez vous rechercher ?");
+				System.out.println("[1] Par Nom");
+				System.out.println("[2] Par Genre");
+				System.out.println("[3] Par Limite d'âge");
+				System.out.println("[4] Par Acteur");
+				System.out.println("[5] Par Realisateur");
+				System.out.println("[6] Par Nombre de Location");
+				System.out.println("[0] Annuler");
+				choix = LectureClavier.lireEntier("");
+				String rechS;
+				int rechI, nb;
+				boolean location = false;
+				switch (choix) {
+					case 1:
+						System.out.println("Entrez le nom du film :");
+						rechS = LectureClavier.lireChaine();
+						recherche = locD.rechercheParNom(rechS);
+						if (recherche.getnbFilm() == 0) {
+							System.out.println("Aucun film ne correspond à votre recherche !");
+						} else {
+							do {
+								nomFL = afficherRechercheFilm(recherche, recherche.getnbFilm());
+								choix = LectureClavier.lireEntier("");
+								if (choix >= 1 && (choix < recherche.getnbFilm())) {
+									filmVoulu = locD.detailFilm(nomFL[choix - 1]);
+									location = afficherDetailFilm(filmVoulu);
+								} else {
+									System.out.println("Entrez un numero valide");
+								}
+							} while (!location);
+						}
+						break;
+					case 2:
+						System.out.println("Voici tous les genres que nous avons :");
+						recherche = locD.listeGenre();
+						String nomG = "";
+						String[] nomGL = new String[recherche.getnbGenre()];
+						nb = 1;
+						for (Iterator<Genre> it = recherche.getGenre().iterator(); it.hasNext();) {
+							nomG = it.next().getnomGenre();
+							System.out.println("[" + nb + "] " + nomG);
+							nomGL[nb - 1] = nomG;
+							nb++;
+						}
+						choix = LectureClavier.lireEntier("");
+						while (choix <= 0 || choix > recherche.getnbGenre()) {
+							System.out.println("Entrez un chiffre valide");
+							choix = LectureClavier.lireEntier("");
+						}
+						recherche = locD.rechercheParGenre(nomGL[choix - 1]);
+						nomFL = afficherRechercheFilm(recherche, recherche.getnbFilm());
+						break;
+					case 3:
+						System.out.println("Entrez la limite d'age :");
+						rechI = LectureClavier.lireEntier("");
+						recherche = locD.rechercheParLimiteAge(rechI);
+						if (recherche.getnbFilm() == 0) {
+							System.out.println("Aucun film ne correspond à votre recherche !");
+						} else {
+							nomFL = afficherRechercheFilm(recherche, recherche.getnbFilm());
+						}
+						break;
+					case 4:
+						System.out.println("Comment voulez vous rechercher ?");
+						System.out.println("[1] Voir la liste de tous les acteurs");
+						System.out.println("[2] Taper le nom de l'acteur voulu");
+						rechI = LectureClavier.lireEntier("");
+						if (rechI == 1 || rechI == 2) {
+							if (rechI == 1) {
+								recherche = locD.listeActeur();
+								String nomA = "";
+								String[] nomAL = new String[recherche.getnbActeur()];
+								nb = 1;
+								for (Iterator<Personne> it = recherche.getActeur().iterator(); it.hasNext();) {
+									nomA = it.next().getnomPersonne();
+									System.out.println("[" + nb + "] " + nomA);
+									nomAL[nb - 1] = nomA;
+									nb++;
+								}
+								choix = LectureClavier.lireEntier("");
+								while (choix <= 0 || choix > recherche.getnbActeur()) {
+									System.out.println("Entrez un chiffre valide");
+									choix = LectureClavier.lireEntier("");
+								}
+								recherche = locD.rechercheParActeur(nomAL[choix - 1]);
+							} else {
+								System.out.println("Entrez le nom de l'acteur rechercher :");
+								rechS = LectureClavier.lireChaine();
+								recherche = locD.rechercheParActeur(rechS);
+							}
+							if (recherche.getnbFilm() == 0) {
+								System.out.println("Aucun film ne correspond à votre recherche !");
+							} else {
+								nomFL = afficherRechercheFilm(recherche, recherche.getnbFilm());
+							}
+						} else {
+							System.out.println("Entrée invalide.");
+						}
+						break;
+					case 5:
+						System.out.println("Comment voulez vous rechercher ?");
+						System.out.println("[1] Voir la liste de tous les réalisateurs");
+						System.out.println("[2] Taper le nom du réalisateur voulu");
+						rechI = LectureClavier.lireEntier("");
+						if (rechI == 1 || rechI == 2) {
+							if (rechI == 1) {
+								recherche = locD.listeRealisateur();
+								String nomR = "";
+								String[] nomRL = new String[recherche.getnbRealisateur()];
+								nb = 1;
+								for (Iterator<Personne> it = recherche.getRealisateur().iterator(); it.hasNext();) {
+									nomR = it.next().getnomPersonne();
+									System.out.println("[" + nb + "] " + nomR);
+									nomRL[nb - 1] = nomR;
+									nb++;
+								}
+								choix = LectureClavier.lireEntier("");
+								while (choix <= 0 || choix > recherche.getnbRealisateur()) {
+									System.out.println("Entrez un chiffre valide");
+									choix = LectureClavier.lireEntier("");
+								}
+								recherche = locD.rechercheParRealisateur(nomRL[choix - 1]);
+							} else {
+								System.out.println("Entrez le nom de l'acteur rechercher :");
+								rechS = LectureClavier.lireChaine();
+								recherche = locD.rechercheParRealisateur(rechS);
+							}
+							if (recherche.getnbFilm() == 0) {
+								System.out.println("Aucun film ne correspond à votre recherche !");
+							} else {
+								nomFL = afficherRechercheFilm(recherche, recherche.getnbFilm());
+							}
+						} else {
+							System.out.println("Entrée invalide.");
+						}
+						break;
+					case 6:
+						System.out.println("Voici les 10 films les plus loués :");
+						recherche = locD.topLocation();
+						nomFL = afficherRechercheFilm(recherche, 10);
+						break;
+					default:
+						break;
+				}
 				break;
 			case 0:
 				break;
@@ -86,6 +226,26 @@ public class App {
 				break;
 		}
 		menuPrincipal();
+	}
+
+	private static String[] afficherRechercheFilm(RechercheFilm recherche, int nbFilm) {
+		String nomF = "";
+		String[] nomFL = new String[nbFilm];
+		int nb = 1;
+		for (Iterator<Film> it = recherche.getFilms().iterator(); it.hasNext();) {
+			nomF = it.next().getnomFilm();
+			System.out.println("[" + nb + "] " + nomF);
+			nomFL[nb - 1] = nomF;
+			nb++;
+		}
+		return nomFL;
+	}
+
+	private static boolean afficherDetailFilm(Film f){
+		boolean sortie = false;
+		System.out.println(f.getnomFilm());
+		System.out.println();
+		return sortie;
 	}
 
 	private static void rendre() {
@@ -402,10 +562,9 @@ public class App {
 						case 4:
 							System.out.println("Entrez votre mot de passe par sécurité");
 							String mdp = LectureClavier.lireChaine();
-							if(cliD.suppCarte(mail, carte.getnomCarteAbonnement(), mdp)){
+							if (cliD.suppCarte(mail, carte.getnomCarteAbonnement(), mdp)) {
 								System.out.println("La carte à été supprimée");
-							}
-							else{
+							} else {
 								System.out.println("Mauvais mot de passe, impossible de supprimer la carte");
 							}
 
