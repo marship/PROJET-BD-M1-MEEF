@@ -1,6 +1,8 @@
 package modele;
 
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Film {
     private String nomFilm;
@@ -11,6 +13,10 @@ public class Film {
     private int limiteAgeFilm;
     private Date dateAjoutFilm;
     private int nombreTotalLocationFilm;
+    private String NomPrenomRealisateur;
+
+    private Set listeGenre = new HashSet();
+    private Set listeActeur = new HashSet();
 
     // Nom Film
     public String getnomFilm() {
@@ -83,4 +89,30 @@ public class Film {
     public void setnombreTotalLocationFilm(int d) {
         nombreTotalLocationFilm = d;
     }
+
+    // Nom Du réalisateur
+    public String getNomPrenomRealisateur() {
+        return NomPrenomRealisateur;
+    }
+
+    public void setNomPrenomRealisateur(String n) {
+        NomPrenomRealisateur = n;
+    }
+
+    public void addGenre(Genre g) {
+        listeGenre.add(g);
+    }
+
+    public Set getGenre() {
+        return listeGenre;
+    }
+
+    public void addActeur(Personne p) {
+        listeActeur.add(p);
+    }
+
+    public Set getActeur() {
+        return listeActeur;
+    }
+
 }

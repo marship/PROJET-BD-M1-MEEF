@@ -1,6 +1,7 @@
 package main;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -68,11 +69,26 @@ public class App {
 		LocationDAO locD = new LocationDAO(s1.getSession());
 		RechercheFilm recherche;
 		Film filmVoulu;
+		boolean boucle = true;
 		switch (choix) {
 			case 1:
 				System.out.println("Voilà les derniers films ajoutés au système : ");
 				recherche = locD.dernierFilmAjoute();
-				nomFL = afficherRechercheFilm(recherche, 5);
+				boucle = true;
+				do {
+					nomFL = afficherRechercheFilm(recherche, 5);
+					choix = LectureClavier.lireEntier("");
+					if (choix >= 1 && (choix < 5)) {
+						filmVoulu = locD.detailFilm(nomFL[choix - 1]);
+						boucle = afficherDetailFilm(filmVoulu);
+					} else {
+						if (choix == 0) {
+							boucle = false;
+						} else {
+							System.out.println("Entrez un numero valide");
+						}
+					}
+				} while (boucle);
 				break;
 			case 2:
 				System.out.println("Comment voulez vous rechercher ?");
@@ -86,7 +102,7 @@ public class App {
 				choix = LectureClavier.lireEntier("");
 				String rechS;
 				int rechI, nb;
-				boolean location = false;
+				boucle = true;
 				switch (choix) {
 					case 1:
 						System.out.println("Entrez le nom du film :");
@@ -100,11 +116,15 @@ public class App {
 								choix = LectureClavier.lireEntier("");
 								if (choix >= 1 && (choix < recherche.getnbFilm())) {
 									filmVoulu = locD.detailFilm(nomFL[choix - 1]);
-									location = afficherDetailFilm(filmVoulu);
+									boucle = afficherDetailFilm(filmVoulu);
 								} else {
-									System.out.println("Entrez un numero valide");
+									if (choix == 0) {
+										boucle = false;
+									} else {
+										System.out.println("Entrez un numero valide");
+									}
 								}
-							} while (!location);
+							} while (boucle);
 						}
 						break;
 					case 2:
@@ -125,7 +145,20 @@ public class App {
 							choix = LectureClavier.lireEntier("");
 						}
 						recherche = locD.rechercheParGenre(nomGL[choix - 1]);
-						nomFL = afficherRechercheFilm(recherche, recherche.getnbFilm());
+						do {
+							nomFL = afficherRechercheFilm(recherche, recherche.getnbFilm());
+							choix = LectureClavier.lireEntier("");
+							if (choix >= 1 && (choix < recherche.getnbFilm())) {
+								filmVoulu = locD.detailFilm(nomFL[choix - 1]);
+								boucle = afficherDetailFilm(filmVoulu);
+							} else {
+								if (choix == 0) {
+									boucle = false;
+								} else {
+									System.out.println("Entrez un numero valide");
+								}
+							}
+						} while (boucle);
 						break;
 					case 3:
 						System.out.println("Entrez la limite d'age :");
@@ -134,7 +167,20 @@ public class App {
 						if (recherche.getnbFilm() == 0) {
 							System.out.println("Aucun film ne correspond à votre recherche !");
 						} else {
-							nomFL = afficherRechercheFilm(recherche, recherche.getnbFilm());
+							do {
+								nomFL = afficherRechercheFilm(recherche, recherche.getnbFilm());
+								choix = LectureClavier.lireEntier("");
+								if (choix >= 1 && (choix < recherche.getnbFilm())) {
+									filmVoulu = locD.detailFilm(nomFL[choix - 1]);
+									boucle = afficherDetailFilm(filmVoulu);
+								} else {
+									if (choix == 0) {
+										boucle = false;
+									} else {
+										System.out.println("Entrez un numero valide");
+									}
+								}
+							} while (boucle);
 						}
 						break;
 					case 4:
@@ -168,7 +214,20 @@ public class App {
 							if (recherche.getnbFilm() == 0) {
 								System.out.println("Aucun film ne correspond à votre recherche !");
 							} else {
-								nomFL = afficherRechercheFilm(recherche, recherche.getnbFilm());
+								do {
+									nomFL = afficherRechercheFilm(recherche, recherche.getnbFilm());
+									choix = LectureClavier.lireEntier("");
+									if (choix >= 1 && (choix < recherche.getnbFilm())) {
+										filmVoulu = locD.detailFilm(nomFL[choix - 1]);
+										boucle = afficherDetailFilm(filmVoulu);
+									} else {
+										if (choix == 0) {
+											boucle = false;
+										} else {
+											System.out.println("Entrez un numero valide");
+										}
+									}
+								} while (boucle);
 							}
 						} else {
 							System.out.println("Entrée invalide.");
@@ -205,7 +264,20 @@ public class App {
 							if (recherche.getnbFilm() == 0) {
 								System.out.println("Aucun film ne correspond à votre recherche !");
 							} else {
-								nomFL = afficherRechercheFilm(recherche, recherche.getnbFilm());
+								do {
+									nomFL = afficherRechercheFilm(recherche, recherche.getnbFilm());
+									choix = LectureClavier.lireEntier("");
+									if (choix >= 1 && (choix < recherche.getnbFilm())) {
+										filmVoulu = locD.detailFilm(nomFL[choix - 1]);
+										boucle = afficherDetailFilm(filmVoulu);
+									} else {
+										if (choix == 0) {
+											boucle = false;
+										} else {
+											System.out.println("Entrez un numero valide");
+										}
+									}
+								} while (boucle);
 							}
 						} else {
 							System.out.println("Entrée invalide.");
@@ -214,7 +286,20 @@ public class App {
 					case 6:
 						System.out.println("Voici les 10 films les plus loués :");
 						recherche = locD.topLocation();
-						nomFL = afficherRechercheFilm(recherche, 10);
+						do {
+							nomFL = afficherRechercheFilm(recherche, 10);
+							choix = LectureClavier.lireEntier("");
+							if (choix >= 1 && (choix < 10)) {
+								filmVoulu = locD.detailFilm(nomFL[choix - 1]);
+								boucle = afficherDetailFilm(filmVoulu);
+							} else {
+								if (choix == 0) {
+									boucle = false;
+								} else {
+									System.out.println("Entrez un numero valide");
+								}
+							}
+						} while (boucle);
 						break;
 					default:
 						break;
@@ -238,14 +323,152 @@ public class App {
 			nomFL[nb - 1] = nomF;
 			nb++;
 		}
+		System.out.println("[0] Retour");
 		return nomFL;
 	}
 
-	private static boolean afficherDetailFilm(Film f){
-		boolean sortie = false;
+	private static boolean afficherDetailFilm(Film f) {
+
+		boolean boucle = true;
+
 		System.out.println(f.getnomFilm());
 		System.out.println();
-		return sortie;
+		System.out.print("Sorti le : " + f.getdateSortieFilm() + "/" + f.getdureeFilm() + "/");
+		for (Iterator<Genre> it = f.getGenre().iterator(); it.hasNext();) {
+			System.out.print(it.next().getnomGenre());
+		}
+		if (f.getlimiteAgeFilm() != 0) {
+			System.out.println("/Interdit aux moins de " + f.getlimiteAgeFilm() + "ans");
+		} else {
+			System.out.println();
+		}
+		System.out.println("Un film de : " + f.getNomPrenomRealisateur());
+		System.out.println("Avec :");
+		for (Iterator<Personne> it = f.getActeur().iterator(); it.hasNext();) {
+			System.out.print(it.next().getnomPersonne());
+		}
+		System.out.println();
+		System.out.println("SYNOPSIS :");
+		System.out.println(f.getresumeFilm());
+		System.out.println("Film ajouté le :" + f.getdateAjoutFilm() + ", Loué " + f.getnombreTotalLocationFilm());
+		System.out.println("Il reste " + f.getnombreExemplaireFilm() + "exmplaire en physique du film");
+		System.out.println();
+		System.out.println("Que voulez vous faire ?");
+		System.out.println("[1] Le louer");
+		System.out.println("[2] L'ajouter à la liste de mes films à voir");
+		System.out.println("[0] Revenir en arrière");
+
+		int choix = LectureClavier.lireEntier("");
+		if (choix == 1 || choix == 2) {
+			if (choix == 1) {
+				boucle = choixLocation(f);
+			} else {
+				boucle = choixWish(f);
+			}
+		} else {
+			boucle = true;
+		}
+		return boucle;
+	}
+
+	private static boolean choixLocation(Film f) {
+		boolean boucle = true;
+		System.out.println("Vous voulez louer le film :" + f.getnomFilm());
+		System.out.println("Merci de vous connecter ou de faire un compte");
+		System.out.println("[1] Se connecter");
+		System.out.println("[2] Faire un compte");
+		System.out.println("[0] Annuler");
+		int choix = LectureClavier.lireEntier("");
+		switch (choix) {
+			case 2:
+				creationCompte();
+				System.out.println("Merci de vous connectez");
+			case 1:
+				System.out.println("Entrez votre adresse mail :");
+				String mail = LectureClavier.lireChaine();
+				System.out.println("Entrez votre mot de passe :");
+				String mdp = LectureClavier.lireChaine();
+				ClientDAO cliD = new ClientDAO(s1.getSession());
+				if (!cliD.connexion(mail, mdp)) {
+					EmpruntDAO empD = new EmpruntDAO(s1.getSession());
+					if (empD.nbEmprunt(mail) == 3) {
+						System.out.println(
+								"Trois locations au maximun en même temps !\nRendez des films et revenez nous voir !");
+						System.out.println(
+								"Vous pouvez l'ajouter dans votre liste de shouait en attendant.\nRépondez par o/n");
+						boolean ajout = LectureClavier.lireOuiNon("");
+						if (ajout) {
+							cliD.ajoutWish(mail, f.getnomFilm());
+						}
+					} else {
+						System.out.println("Quel type de support voulez vous ?");
+						System.out.println("[1] QR Code");
+						if (f.getnombreExemplaireFilm() > 0) {
+							System.out.println("[2] Physique");
+						}
+						choix = LectureClavier.lireEntier("");
+						String type;
+						if (choix == 2 && f.getnombreExemplaireFilm() > 0) {
+							type = "Physique";
+						} else {
+							type = "QR Code";
+						}
+						System.out.println("Comment voulez vous payer ?");
+						System.out.println("[1] Carte bancaire");
+						System.out.println("[2] Carte abonné");
+						choix = LectureClavier.lireEntier("");
+						String tarif;
+						if (choix == 2) {
+							tarif = "Adhérent"; // Faire afficher la liste des cartes du mec, lui faire choisir, vérif
+												// la somme sur la carte, pouvoir en faire une nouvelle
+						} else {
+							tarif = "Défaut";
+						}
+						Date jour = new Date();
+						empD.empruntFilm(f.getnomFilm(), mail, jour, type, tarif);
+					}
+					boucle = false;
+				} else {
+					System.out.println("Erreur de connexion, retour sur la page du film");
+					afficherDetailFilm(f);
+				}
+				break;
+			default:
+				break;
+		}
+		return boucle;
+	}
+
+	private static boolean choixWish(Film f) {
+		boolean boucle = true;
+		System.out.println("Vous voulez mettre dans votre liste le film :" + f.getnomFilm());
+		System.out.println("Merci de vous connecter ou de faire un compte");
+		System.out.println("[1] Se connecter");
+		System.out.println("[2] Faire un compte");
+		System.out.println("[0] Annuler");
+		int choix = LectureClavier.lireEntier("");
+		switch (choix) {
+			case 2:
+				creationCompte();
+				System.out.println("Merci de vous connectez");
+			case 1:
+				System.out.println("Entrez votre adresse mail :");
+				String mail = LectureClavier.lireChaine();
+				System.out.println("Entrez votre mot de passe :");
+				String mdp = LectureClavier.lireChaine();
+				ClientDAO cliD = new ClientDAO(s1.getSession());
+				if (!cliD.connexion(mail, mdp)) {
+					cliD.ajoutWish(mail, f.getnomFilm());
+					boucle = false;
+				} else {
+					System.out.println("Erreur de connexion, retour sur la page du film");
+					afficherDetailFilm(f);
+				}
+				break;
+			default:
+				break;
+		}
+		return boucle;
 	}
 
 	private static void rendre() {
@@ -370,8 +593,6 @@ public class App {
 				System.out.println("Cette adresse mail est déjà prise !");
 				creationCompte();
 			}
-		} else {
-			menuPrincipal();
 		}
 	}
 
@@ -428,6 +649,7 @@ public class App {
 				System.out.println("[6] Carte Bancaire");
 				System.out.println("[7] Carte Abonnés");
 				System.out.println("[8] Mot de passe");
+				System.out.println("[9] Liste de Souhait");
 				System.out.println("[0] Annuler et revenir au menu principal");
 				int choix = LectureClavier.lireEntier("");
 
@@ -484,10 +706,12 @@ public class App {
 						modifCarteAbo(mail);
 						break;
 					case 8:
-						System.out.println("Entrez votre nouveau numéro de telephone");
+						System.out.println("Entrez votre nouveau mot de passe");
 						String mdp2 = LectureClavier.lireChaine();
 
 						cliD.majMdp(mail, mdp2);
+					case 9:
+						listeSouhait(mail);
 					default:
 						menuPrincipal();
 						break;
@@ -577,6 +801,43 @@ public class App {
 				break;
 			default:
 				break;
+		}
+	}
+
+	private static void listeSouhait(String mail) {
+		ClientDAO cliD = new ClientDAO(s1.getSession());
+		Client client = cliD.listeWish(mail);
+		System.out.println(
+				"Voici la liste des films que vous voulez regarder.\nMerci d'écrire le numéro du film à traiter.");
+		Film f;
+		Film[] nomFL = new Film[client.getnbWish()];
+		int nb = 1;
+		for (Iterator<Film> it = client.getWish().iterator(); it.hasNext();) {
+			f = it.next();
+			System.out.println("[" + nb + "] " + f.getnomFilm());
+			nomFL[nb - 1] = f;
+			nb++;
+		}
+		System.out.println("[0] Retour");
+		int choix = LectureClavier.lireEntier("");
+		if (nb >= 1 && nb <= client.getnbWish()) {
+			f = nomFL[nb-1];
+			System.out.println("Que voulez vous faire ?");
+			System.out.println("[1] Aller sur la page du film");
+			System.out.println("[2] Le supprimer de ma liste de Souhait");
+			System.out.println("[0] Annuler");
+			choix = LectureClavier.lireEntier("");
+			switch (choix) {
+				case 1:
+					afficherDetailFilm(f);
+					break;
+				case 2:
+					cliD.suppWish(mail, f.getnomFilm());
+				default:
+					break;
+			}
+		} else {
+			System.out.println("Le numéro du film n'est pas valide.");
 		}
 	}
 }

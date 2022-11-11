@@ -1,6 +1,8 @@
 package dao;
 
 import modele.Gardien;
+import modele.Genre;
+import modele.Personne;
 import modele.Cage;
 import modele.Carte;
 import modele.Client;
@@ -166,7 +168,7 @@ public class ClientDAO extends DAO<Gardien> {
 			lesClients.setString(1, mail);
 			lesClients.setString(2, nomC);
 
-			if(connexion(mail, mdp)){
+			if (connexion(mail, mdp)) {
 				lesClients.executeQuery();
 				sortie = true;
 			}
@@ -330,6 +332,33 @@ public class ClientDAO extends DAO<Gardien> {
 		}
 	}
 
+	public void ajoutWish(String mail, String nomF) {
+		try (PreparedStatement lesClients = conn
+				.prepareStatement(
+						"INSERT INTO SOUHAIT (NomFilm, AdresseMailClient) VALUES (?, ?)");) {
+
+			lesClients.setString(1, nomF);
+			lesClients.setString(2, mail);
+			lesClients.executeQuery();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void suppWish(String mail, String nomF) {
+		try (PreparedStatement suppFilm = conn
+				.prepareStatement("DELETE FROM SOUHAIT WHERE AdresseMailClient = ? AND NomFilm = ?");) {
+
+			suppFilm.setString(1, (String) mail);
+			suppFilm.setString(2, (String) nomF);
+			suppFilm.executeQuery();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public int nbEmprunt(Object g) {
 		int nbEmprunt = 0;
 
@@ -371,6 +400,79 @@ public class ClientDAO extends DAO<Gardien> {
 		}
 
 		return client;
+	}
+
+	public Client listeWish(String mail) {
+		Client client = null;
+
+		try (PreparedStatement lesFilms = conn
+				.prepareStatement("SELECT NomFilm FROM SOUHAIT WHERE AdresseMailClient = ?");) {
+
+			lesFilms.setString(1, mail);
+			ResultSet resultSet = lesFilms.executeQuery();
+
+			client = new Client();
+			int nbWish = 0;
+			while (resultSet.next()) {
+				Film f = detailFilm(resultSet.getString(1));
+				client.addWish(f);
+				nbWish++;
+			}
+			client.setnbWish(nbWish);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return client;
+	}
+
+	public Film detailFilm(String nomF) {
+		Film film = null;
+
+		try (PreparedStatement lesFilms = conn.prepareStatement("SELECT * FROM FILM WHERE NomFilm = ?");
+				PreparedStatement lesActeurs = conn.prepareStatement("SELECT * FROM JOUER WHERE NomFilm = ?");
+				PreparedStatement lesGenre = conn.prepareStatement("SELECT * FROM CATEGORIE WHERE NomFilm = ?")) {
+
+			lesFilms.setString(1, nomF);
+			ResultSet resultSet = lesFilms.executeQuery();
+
+			film = new Film();
+			while (resultSet.next()) {
+				film.setnomFilm(nomF);
+				film.setresumeFilm(resultSet.getString(2));
+				film.setresumeFilm(resultSet.getString(2));
+				film.setdateSortieFilm(resultSet.getDate(3));
+				film.setdureeFilm(resultSet.getDate(4));
+				film.setnombreExemplaireFilm(resultSet.getInt(5));
+				film.setlimiteAgeFilm(resultSet.getInt(6));
+				film.setdateAjoutFilm(resultSet.getDate(7));
+				film.setnombreTotalLocationFilm(resultSet.getInt(8));
+				film.setNomPrenomRealisateur(resultSet.getString(9));
+			}
+
+			lesActeurs.setString(1, nomF);
+			resultSet = lesFilms.executeQuery();
+
+			while (resultSet.next()) {
+				Personne p = new Personne();
+				p.setnomPersonne(resultSet.getString(1));
+				film.addActeur(p);
+			}
+
+			lesGenre.setString(1, nomF);
+			resultSet = lesFilms.executeQuery();
+
+			while (resultSet.next()) {
+				Genre g = new Genre();
+				g.setnomGenre(resultSet.getString(1));
+				film.addGenre(g);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return film;
 	}
 
 	public Client listeCarte(Object g) {

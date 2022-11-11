@@ -9,7 +9,11 @@ public class Client extends Employe {
 
   private Set CarteAbo = new HashSet();
 
+  private Set Wish = new HashSet();
+
   private int nbCartes;
+
+  private int nbWish;
 
   public void addFilm(Film f) {
     FilmsLoues.add(f);
@@ -33,5 +37,21 @@ public class Client extends Employe {
 
   public void setnbCarte(int n){
     nbCartes = n;
+  }
+
+  public void addWish(Film f) {
+    Wish.add(f);
+  }
+
+  public Set getWish() {
+    return Wish;
+  }
+
+  public int getnbWish(){
+    return nbWish;
+  }
+
+  public void setnbWish(int n){
+    nbWish = n;
   }
 }

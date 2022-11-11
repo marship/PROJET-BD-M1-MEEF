@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 public class EmpruntDAO extends DAO<Gardien> {
 	public EmpruntDAO(Connection conn) {
@@ -70,6 +71,22 @@ public class EmpruntDAO extends DAO<Gardien> {
 			suppFilm.setString(1, (String) mail);
 			suppFilm.setString(2, (String) nomF);
 			suppFilm.executeQuery();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void empruntFilm(String mail, String nomF, Date date, String type, String tarif) {
+		try (PreparedStatement addFilm = conn
+				.prepareStatement("INSERT INTO EMPRUNT (DateDebutEmprunt, NomFilm, AdresseMailClient, TypeSupport, NomTarif) VALUES (?, ?, ?, ?, ?)");) {
+
+			addFilm.setDate(1, (java.sql.Date) date);
+			addFilm.setString(2, nomF);
+			addFilm.setString(3, mail);
+			addFilm.setString(4, type);
+			addFilm.setString(5, tarif);
+			addFilm.executeQuery();
 
 		} catch (SQLException e) {
 			e.printStackTrace();

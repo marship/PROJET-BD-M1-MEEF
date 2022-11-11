@@ -76,7 +76,7 @@ public class LocationDAO extends DAO<Gardien> {
 						"SELECT NomFilm FROM FILM WHERE NomFilm LIKE ?")) {
 
 			nom = "%" + nom + "%";
-			lesFilms.setString(1, nom); 
+			lesFilms.setString(1, nom);
 
 			ResultSet resultSet = lesFilms.executeQuery();
 
@@ -104,7 +104,7 @@ public class LocationDAO extends DAO<Gardien> {
 				.prepareStatement(
 						"SELECT NomFilm FROM CATEGORIE WHERE NomGenre = ?")) {
 
-			lesFilms.setString(1, nom); 
+			lesFilms.setString(1, nom);
 
 			ResultSet resultSet = lesFilms.executeQuery();
 
@@ -132,7 +132,7 @@ public class LocationDAO extends DAO<Gardien> {
 				.prepareStatement(
 						"SELECT NomFilm FROM FILM WHERE LimiteAgeFilm >= ?")) {
 
-			lesFilms.setInt(1, lim); 
+			lesFilms.setInt(1, lim);
 
 			ResultSet resultSet = lesFilms.executeQuery();
 
@@ -161,7 +161,7 @@ public class LocationDAO extends DAO<Gardien> {
 						"SELECT NomFilm FROM JOUER WHERE NomPrenomActeur LIKE ?")) {
 
 			nom = "%" + nom + "%";
-			lesFilms.setString(1, nom); 
+			lesFilms.setString(1, nom);
 
 			ResultSet resultSet = lesFilms.executeQuery();
 
@@ -190,7 +190,7 @@ public class LocationDAO extends DAO<Gardien> {
 						"SELECT NomFilm FROM FILM WHERE NomPrenomRealisateur LIKE ?")) {
 
 			nom = "%" + nom + "%";
-			lesFilms.setString(1, nom); 
+			lesFilms.setString(1, nom);
 
 			ResultSet resultSet = lesFilms.executeQuery();
 
@@ -211,7 +211,7 @@ public class LocationDAO extends DAO<Gardien> {
 		return recherche;
 	}
 
-	public RechercheFilm listeGenre(){
+	public RechercheFilm listeGenre() {
 		RechercheFilm recherche = null;
 
 		try (PreparedStatement lesGenres = conn
@@ -237,7 +237,7 @@ public class LocationDAO extends DAO<Gardien> {
 		return recherche;
 	}
 
-	public RechercheFilm listeActeur(){
+	public RechercheFilm listeActeur() {
 		RechercheFilm recherche = null;
 
 		try (PreparedStatement lesActeurs = conn
@@ -263,7 +263,7 @@ public class LocationDAO extends DAO<Gardien> {
 		return recherche;
 	}
 
-	public RechercheFilm listeRealisateur(){
+	public RechercheFilm listeRealisateur() {
 		RechercheFilm recherche = null;
 
 		try (PreparedStatement lesRealisateurs = conn
@@ -287,6 +287,54 @@ public class LocationDAO extends DAO<Gardien> {
 		}
 
 		return recherche;
+	}
+
+	public Film detailFilm(String nomF) {
+		Film film = null;
+
+		try (PreparedStatement lesFilms = conn.prepareStatement("SELECT * FROM FILM WHERE NomFilm = ?");
+				PreparedStatement lesActeurs = conn.prepareStatement("SELECT * FROM JOUER WHERE NomFilm = ?");
+				PreparedStatement lesGenre = conn.prepareStatement("SELECT * FROM CATEGORIE WHERE NomFilm = ?")) {
+
+			lesFilms.setString(1, nomF);
+			ResultSet resultSet = lesFilms.executeQuery();
+
+			film = new Film();
+			while (resultSet.next()) {
+				film.setnomFilm(nomF);
+				film.setresumeFilm(resultSet.getString(2));
+				film.setresumeFilm(resultSet.getString(2));
+				film.setdateSortieFilm(resultSet.getDate(3));
+				film.setdureeFilm(resultSet.getDate(4));
+				film.setnombreExemplaireFilm(resultSet.getInt(5));
+				film.setlimiteAgeFilm(resultSet.getInt(6));
+				film.setdateAjoutFilm(resultSet.getDate(7));
+				film.setnombreTotalLocationFilm(resultSet.getInt(8));
+				film.setNomPrenomRealisateur(resultSet.getString(9));
+			}
+
+			lesActeurs.setString(1, nomF);
+			resultSet = lesFilms.executeQuery();
+
+			while (resultSet.next()) {
+				Personne p = new Personne();
+				p.setnomPersonne(resultSet.getString(1));
+				film.addActeur(p);
+			}
+
+			lesGenre.setString(1, nomF);
+			resultSet = lesFilms.executeQuery();
+
+			while (resultSet.next()) {
+				Genre g = new Genre();
+				g.setnomGenre(resultSet.getString(1));
+				film.addGenre(g);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return film;
 	}
 
 	@Override
