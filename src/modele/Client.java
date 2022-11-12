@@ -3,7 +3,7 @@ package modele;
 import java.util.Set;
 import java.util.HashSet;
 
-public class Client extends Employe {
+public class Client {
 
   private Set FilmsLoues = new HashSet();
 

@@ -3,16 +3,13 @@ package main;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.Scanner;
 
 import dao.ClientDAO;
 import dao.EmpruntDAO;
-import dao.GardienDAO;
 import dao.LocationDAO;
 import modele.Carte;
 import modele.Client;
 import modele.Film;
-import modele.Gardien;
 import modele.Genre;
 import modele.Personne;
 import modele.RechercheFilm;
@@ -24,6 +21,8 @@ public class App {
 	static Session s1;
 
 	public static void main(String args[]) {
+		try{
+			
 		/* Menu utilisateur */
 		System.out.println("Bienvenue sur Didier Futur !");
 		s1 = new Session();
@@ -31,9 +30,19 @@ public class App {
 		menuPrincipal();
 		s1.close();
 		System.out.println("Merci d'avoir utilisé Didier Futur et à bientôt !");
+			// traitement d'exception
+		} catch (SQLException e) {
+			System.err.println("failed");
+			System.out.println("Affichage de la pile d'erreur");
+			e.printStackTrace(System.err);
+			System.out.println("Affichage du message d'erreur");
+			System.out.println(e.getMessage());
+			System.out.println("Affichage du code d'erreur");
+			System.out.println(e.getErrorCode());
+		}
 	}
 
-	private static void menuPrincipal() {
+	private static void menuPrincipal() throws SQLException  {
 		System.out.println("Que souhaitez-vous faire ?");
 		int choix;
 		System.out.println("[1] Louer un film");
@@ -57,7 +66,7 @@ public class App {
 		}
 	}
 
-	private static void location() {
+	private static void location() throws SQLException  {
 		System.out.println("Que souhaitez-vous faire ?");
 		int choix;
 		System.out.println("[1] Derniers films en date");
@@ -313,7 +322,7 @@ public class App {
 		menuPrincipal();
 	}
 
-	private static String[] afficherRechercheFilm(RechercheFilm recherche, int nbFilm) {
+	private static String[] afficherRechercheFilm(RechercheFilm recherche, int nbFilm) throws SQLException  {
 		String nomF = "";
 		String[] nomFL = new String[nbFilm];
 		int nb = 1;
@@ -327,7 +336,7 @@ public class App {
 		return nomFL;
 	}
 
-	private static boolean afficherDetailFilm(Film f) {
+	private static boolean afficherDetailFilm(Film f) throws SQLException  {
 
 		boolean boucle = true;
 
@@ -371,7 +380,7 @@ public class App {
 		return boucle;
 	}
 
-	private static boolean choixLocation(Film f) {
+	private static boolean choixLocation(Film f) throws SQLException  {
 		boolean boucle = true;
 		System.out.println("Vous voulez louer le film :" + f.getnomFilm());
 		System.out.println("Merci de vous connecter ou de faire un compte");
@@ -439,7 +448,7 @@ public class App {
 		return boucle;
 	}
 
-	private static boolean choixWish(Film f) {
+	private static boolean choixWish(Film f) throws SQLException  {
 		boolean boucle = true;
 		System.out.println("Vous voulez mettre dans votre liste le film :" + f.getnomFilm());
 		System.out.println("Merci de vous connecter ou de faire un compte");
@@ -471,7 +480,7 @@ public class App {
 		return boucle;
 	}
 
-	private static void rendre() {
+	private static void rendre() throws SQLException  {
 		System.out.println("Donnez l'adresse mail de la personne ayant emprunter le film :");
 		String mail = LectureClavier.lireChaine();
 		System.out.println(mail);
@@ -521,7 +530,7 @@ public class App {
 		menuPrincipal();
 	}
 
-	private static void gestion() {
+	private static void gestion() throws SQLException  {
 		System.out.println("Que voulez vous faire ?");
 		System.out.println("[1] Gerer les informations de mon compte");
 		System.out.println("[2] Creer un compte");
@@ -544,7 +553,7 @@ public class App {
 		}
 	}
 
-	private static void creationCompte() {
+	private static void creationCompte() throws SQLException  {
 		System.out.println("Donnez votre adresse mail, ou tappez n pour annuler :");
 		String mail = LectureClavier.lireChaine();
 		if (!mail.equals("n")) {
@@ -596,7 +605,7 @@ public class App {
 		}
 	}
 
-	private static void creationCarteAbonnement(String mail) {
+	private static void creationCarteAbonnement(String mail) throws SQLException  {
 		System.out.println("Merci de bien vouloir faire une carte abonnée !");
 		ClientDAO cliD = new ClientDAO(s1.getSession());
 		System.out.println("Comment voulez vous nommer cette carte ?");
@@ -627,7 +636,7 @@ public class App {
 				"Et voilà ! Merci beaucoup de nous faire confiance ;)\nTout est 100000% sécurisé n\'ayez pas peur ^^ !");
 	}
 
-	private static void changementInformations() {
+	private static void changementInformations() throws SQLException  {
 		System.out.println("Donnez votre adresse mail, ou tappez n pour annuler et revenir au menu principal:");
 		String mail = LectureClavier.lireChaine();
 
@@ -721,7 +730,7 @@ public class App {
 		menuPrincipal();
 	}
 
-	private static void modifCarteAbo(String mail) {
+	private static void modifCarteAbo(String mail) throws SQLException  {
 		System.out.println("Que voulez vous faire ?");
 		System.out.println("[1] Faire une nouvelle carte");
 		System.out.println("[2] Modifier mes cartes");
@@ -804,7 +813,7 @@ public class App {
 		}
 	}
 
-	private static void listeSouhait(String mail) {
+	private static void listeSouhait(String mail) throws SQLException  {
 		ClientDAO cliD = new ClientDAO(s1.getSession());
 		Client client = cliD.listeWish(mail);
 		System.out.println(
@@ -821,7 +830,7 @@ public class App {
 		System.out.println("[0] Retour");
 		int choix = LectureClavier.lireEntier("");
 		if (nb >= 1 && nb <= client.getnbWish()) {
-			f = nomFL[nb-1];
+			f = nomFL[nb - 1];
 			System.out.println("Que voulez vous faire ?");
 			System.out.println("[1] Aller sur la page du film");
 			System.out.println("[2] Le supprimer de ma liste de Souhait");
