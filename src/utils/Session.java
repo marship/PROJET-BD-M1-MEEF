@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class Session {
 
-    private final String CONN_URL = "jdbc:oracle:thin:@im2ag-oracle.univ-grenoble-alpes.fr:1521:im2ag";
+    private final String CONN_URL = "jdbc:oracle:thin:@im2ag-oracle.e.ujf-grenoble.fr:1521:im2ag";
     private final String USER = "faurejep";
     private final String PASSWD = "e39914cb5c";
 
