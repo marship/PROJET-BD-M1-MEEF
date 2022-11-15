@@ -246,7 +246,7 @@ public class ClientDAO extends DAO<Client> {
 	public void majCarte(String mail, String num, String date, String picto) {
 		try (PreparedStatement lesClients = conn
 				.prepareStatement(
-						"UPDATE CARTE_BANCAIRE SET NumeroTelephoneClient = ?, ExpirationCarteBancaire = ?, PictogrammeCarteBancaire = ? WHERE AdresseMailClient = ?");) {
+						"UPDATE CARTE_BANCAIRE SET NumeroCarteBancaire = ?, ExpirationCarteBancaire = ?, PictogrammeCarteBancaire = ? WHERE AdresseMailClient = ?");) {
 
 			lesClients.setString(1, num);
 			lesClients.setString(2, date);
@@ -435,11 +435,11 @@ public class ClientDAO extends DAO<Client> {
 				film.setnomFilm(nomF);
 				film.setresumeFilm(resultSet.getString(2));
 				film.setresumeFilm(resultSet.getString(2));
-				film.setdateSortieFilm(resultSet.getDate(3));
-				film.setdureeFilm(resultSet.getDate(4));
+				film.setdateSortieFilm(resultSet.getString(3));
+				film.setdureeFilm(resultSet.getString(4));
 				film.setnombreExemplaireFilm(resultSet.getInt(5));
 				film.setlimiteAgeFilm(resultSet.getInt(6));
-				film.setdateAjoutFilm(resultSet.getDate(7));
+				film.setdateAjoutFilm(resultSet.getString(7));
 				film.setnombreTotalLocationFilm(resultSet.getInt(8));
 				film.setNomPrenomRealisateur(resultSet.getString(9));
 			}
