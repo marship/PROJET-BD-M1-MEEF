@@ -18,46 +18,47 @@ DROP TABLE REALISATEUR;
 /***********************************/
 CREATE TABLE REALISATEUR (
     NomPrenomRealisateur varchar2(100) not null,
-    DateNaissanceRealisateur date,
+    DateNaissanceRealisateur varchar2(10),
     NationnaliteRealisateur varchar2(100),
     constraint REALISATEUR_C1_PK_NomReal primary key (NomPrenomRealisateur)
 );
-INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Jackson', TO_DATE('31/10/1961', 'DD/MM/YYYY'), 'Neo-Zelandais');
-INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Walt Didier', TO_DATE('05/12/1901', 'DD/MM/YYYY'), 'Americain');
-INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Coogler', TO_DATE('23/05/1986', 'DD/MM/YYYY'), 'Americain');
-INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Marsh', TO_DATE('30/04/1963', 'DD/MM/YYYY'), 'Britannique');
-
-INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Lynch', TO_DATE('20/01/1946', 'DD/MM/YYYY'), 'Americain');
-INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Kubrick', TO_DATE('26/07/1928', 'DD/MM/YYYY'), 'Americain');
-INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Fincher', TO_DATE('28/08/1962', 'DD/MM/YYYY'), 'Americain');
-INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Kurosawa', TO_DATE('23/03/1910', 'DD/MM/YYYY'), 'Japonais');
-INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Godard', TO_DATE('3/12/1930', 'DD/MM/YYYY'), 'Franco-suisse');
-INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Kitano', TO_DATE('18/01/1947', 'DD/MM/YYYY'), 'Japonais');
-INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Leone', TO_DATE('3/01/1929', 'DD/MM/YYYY'), 'Italien');
-INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Hitchcock', TO_DATE('13/08/1899', 'DD/MM/YYYY'), 'Britannique');
-INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Malik', TO_DATE('30/11/1943', 'DD/MM/YYYY'), 'Americain');
-INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Scorsese', TO_DATE('17/11/1942', 'DD/MM/YYYY'), 'Italo-americain');
-INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Chaplin', TO_DATE('15/04/1889', 'DD/MM/YYYY'), 'Britannique');
-
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Jackson', '31/10/1961', 'Neo-Zelandais');
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Walt Didier', '05/12/1901', 'Americain');
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Coogler', '23/05/1986', 'Americain');
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Marsh', '30/04/1963', 'Britannique');
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Columbus', '10/09/1958', 'Americain');
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Lynch', '20/01/1946', 'Americain');
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Kubrick', '26/07/1928', 'Americain');
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Fincher', '28/08/1962', 'Americain');
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Kurosawa', '23/03/1910', 'Japonais');
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Godard', '3/12/1930', 'Franco-suisse');
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Kitano', '18/01/1947', 'Japonais');
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Leone', '3/01/1929', 'Italien');
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Hitchcock', '13/08/1899', 'Britannique');
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Malik', '30/11/1943', 'Americain');
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Scorsese', '17/11/1942', 'Italo-americain');
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Chaplin', '15/04/1889', 'Britannique');
 
 /***********************************/
 /************** ACTEUR *************/
 /***********************************/
 CREATE TABLE ACTEUR (
     NomPrenomActeur varchar2(100) not null,
-    DateNaissanceActeur date,
+    DateNaissanceActeur varchar2(10),
     NationnaliteActeur varchar2(100),
     constraint ACTEUR_C1_PK_NomActeur primary key (NomPrenomActeur)
 );
-INSERT INTO ACTEUR (NomPrenomActeur, DateNaissanceActeur, NationnaliteActeur) VALUES ('Didier Depp', TO_DATE('09/06/1963', 'DD/MM/YYYY'), 'Americain');
-INSERT INTO ACTEUR (NomPrenomActeur, DateNaissanceActeur, NationnaliteActeur) VALUES ('Didier Mortensen', TO_DATE('20/10/1958', 'DD/MM/YYYY'), 'Americain');
-INSERT INTO ACTEUR (NomPrenomActeur, DateNaissanceActeur, NationnaliteActeur) VALUES ('Sean Didier', TO_DATE('25/02/1971', 'DD/MM/YYYY'), 'Americain');
-INSERT INTO ACTEUR (NomPrenomActeur, DateNaissanceActeur, NationnaliteActeur) VALUES ('Didier Bloom', TO_DATE('13/01/1977', 'DD/MM/YYYY'), 'Americain');
-INSERT INTO ACTEUR (NomPrenomActeur, DateNaissanceActeur, NationnaliteActeur) VALUES ('Didier McKellen', TO_DATE('25/04/1939', 'DD/MM/YYYY'), 'Britannique');
-INSERT INTO ACTEUR (NomPrenomActeur, DateNaissanceActeur, NationnaliteActeur) VALUES ('Didier Bean', TO_DATE('17/04/1959', 'DD/MM/YYYY'), 'Britannique');
-INSERT INTO ACTEUR (NomPrenomActeur, DateNaissanceActeur, NationnaliteActeur) VALUES ('Chadwick Didier', TO_DATE('29/11/1976', 'DD/MM/YYYY'), 'Americain');
-INSERT INTO ACTEUR (NomPrenomActeur, DateNaissanceActeur, NationnaliteActeur) VALUES ('Lupita Didier', TO_DATE('1/03/1983', 'DD/MM/YYYY'), 'Mexicain');
-INSERT INTO ACTEUR (NomPrenomActeur, DateNaissanceActeur, NationnaliteActeur) VALUES ('Didier Redmayne', TO_DATE('6/01/1982', 'DD/MM/YYYY'), 'Britannique');
+INSERT INTO ACTEUR (NomPrenomActeur, DateNaissanceActeur, NationnaliteActeur) VALUES ('Didier Depp', '09/06/1963', 'Americain');
+INSERT INTO ACTEUR (NomPrenomActeur, DateNaissanceActeur, NationnaliteActeur) VALUES ('Didier Mortensen', '20/10/1958', 'Americain');
+INSERT INTO ACTEUR (NomPrenomActeur, DateNaissanceActeur, NationnaliteActeur) VALUES ('Sean Didier', '25/02/1971', 'Americain');
+INSERT INTO ACTEUR (NomPrenomActeur, DateNaissanceActeur, NationnaliteActeur) VALUES ('Didier Bloom', '13/01/1977', 'Americain');
+INSERT INTO ACTEUR (NomPrenomActeur, DateNaissanceActeur, NationnaliteActeur) VALUES ('Didier McKellen', '25/04/1939', 'Britannique');
+INSERT INTO ACTEUR (NomPrenomActeur, DateNaissanceActeur, NationnaliteActeur) VALUES ('Didier Bean', '17/04/1959', 'Britannique');
+INSERT INTO ACTEUR (NomPrenomActeur, DateNaissanceActeur, NationnaliteActeur) VALUES ('Chadwick Didier', '29/11/1976', 'Americain');
+INSERT INTO ACTEUR (NomPrenomActeur, DateNaissanceActeur, NationnaliteActeur) VALUES ('Lupita Didier', '1/03/1983', 'Mexicain');
+INSERT INTO ACTEUR (NomPrenomActeur, DateNaissanceActeur, NationnaliteActeur) VALUES ('Didier Redmayne', '6/01/1982', 'Britannique');
+INSERT INTO ACTEUR (NomPrenomActeur, DateNaissanceActeur, NationnaliteActeur) VALUES ('Didier Radcliffe', '23/07/1989', 'Britannique');
+INSERT INTO ACTEUR (NomPrenomActeur, DateNaissanceActeur, NationnaliteActeur) VALUES ('Didier Watson', '15/04/1990', 'Britannique');
 
 /***********************************/
 /************** GENRE **************/
@@ -88,8 +89,6 @@ INSERT INTO GENRE (NomGenre, DescriptionGenre) VALUES ('Catastrophe', 'Un film c
 INSERT INTO GENRE (NomGenre, DescriptionGenre) VALUES ('Anticipation', 'L anticipation est un genre littéraire et cinématographique, constitué par les œuvres dont l action se déroule dans le futur, proche ou lointain. Ce genre est souvent lié à la science-fiction, mais pas systématiquement.');
 INSERT INTO GENRE (NomGenre, DescriptionGenre) VALUES ('Thriller', 'Le thriller (anglicisme, de « to thrill » : faire frémir) est un genre artistique utilisant le suspense ou la tension narrative pour provoquer chez le lecteur ou le spectateur une excitation ou une appréhension et le tenir en haleine jusqu au dénouement de l intrigue.');
 
-
-
 /***********************************/
 /************** CLIENT *************/
 /***********************************/
@@ -98,31 +97,27 @@ CREATE TABLE CLIENT (
 	NomClient varchar2(100),
 	PrenomClient varchar2(100),
     AdressePostalClient varchar2(100),
-    DateNaissanceClient date,
+    DateNaissanceClient varchar2(10),
     NumeroTelephoneClient varchar2(11),
     MotDePasseClient varchar2(100) not null,
 	constraint CLIENT_C1_PK_MailClient primary key (AdresseMailClient)
 );
-INSERT INTO CLIENT (AdresseMailClient, NomClient, PrenomClient, AdressePostalClient, DateNaissanceClient, NumeroTelephoneClient, MotDePasseClient) VALUES ('Jean.Didier@gmail.com', 'Didier', 'Jean', '8 rue de la fontaine 26300 Châteauneuf-sur-Isère', TO_DATE('01/01/1987', 'DD/MM/YYYY'), '0612345678', 'MotDePasse');
-INSERT INTO CLIENT (AdresseMailClient, NomClient, PrenomClient, AdressePostalClient, DateNaissanceClient, NumeroTelephoneClient, MotDePasseClient) VALUES ('Didier.Paul@orange.com', 'Paul', 'Didier', 'Chemin du rail bleu 43150 Freycenet-la-Cuche', TO_DATE('24/12/2000', 'DD/MM/YYYY'), '0634567812', '???');
-INSERT INTO CLIENT (AdresseMailClient, NomClient, PrenomClient, AdressePostalClient, DateNaissanceClient, NumeroTelephoneClient, MotDePasseClient) VALUES ('Didier.Didier@gmail.com', 'Didier', 'Didier', 'Avenue avenante 30340 Saint-Privat-des-Vieux', TO_DATE('11/11/1922', 'DD/MM/YYYY'), '0656781234', 'Didier');
-INSERT INTO CLIENT (AdresseMailClient, NomClient, PrenomClient, AdressePostalClient, DateNaissanceClient, NumeroTelephoneClient, MotDePasseClient) VALUES ('purus.maecenas@yahoo.couk', 'Shellie', 'Wilcox', '534 Phasellus St.', TO_DATE('30/08/2022', 'DD/MM/YYYY'), '0434351828', 'ROS34COV8KR');
-INSERT INTO CLIENT (AdresseMailClient, NomClient, PrenomClient, AdressePostalClient, DateNaissanceClient, NumeroTelephoneClient, MotDePasseClient) VALUES ('nec.eleifend@icloud.com', 'Kyra', 'Morin', '208-6539 Velit Ave', TO_DATE('29/05/2023', 'DD/MM/YYYY'), '0743435290', 'ISW68RYL6WH');
-INSERT INTO CLIENT (AdresseMailClient, NomClient, PrenomClient, AdressePostalClient, DateNaissanceClient, NumeroTelephoneClient, MotDePasseClient) VALUES ('nam.tempor.diam@aol.com', 'Phelan', 'Madden', '641-4358 Laoreet Ave', TO_DATE('12/03/2023', 'DD/MM/YYYY'), '0284608821', 'SNF24BNM5XB');
-INSERT INTO CLIENT (AdresseMailClient, NomClient, PrenomClient, AdressePostalClient, DateNaissanceClient, NumeroTelephoneClient, MotDePasseClient) VALUES ('sed@yahoo.ca', 'Jin', 'Sullivan', '1032 Lorem Ave', TO_DATE('28/12/2021', 'DD/MM/YYYY'), '0408212444', 'SMR25UKP2IG');
-INSERT INTO CLIENT (AdresseMailClient, NomClient, PrenomClient, AdressePostalClient, DateNaissanceClient, NumeroTelephoneClient, MotDePasseClient) VALUES ('pede.sagittis@outlook.org', 'Holmes', 'Cortez', 'Ap #692-7918 Parturient St.', TO_DATE('09/07/2022', 'DD/MM/YYYY'), '0913246031', 'XCG96WBT9HZ');
-INSERT INTO CLIENT (AdresseMailClient, NomClient, PrenomClient, AdressePostalClient, DateNaissanceClient, NumeroTelephoneClient, MotDePasseClient) VALUES ('adipiscing.non.luctus@aol.couk', 'Donovan', 'Stone', '519-9451 Fringilla Av.', TO_DATE('19/03/2023', 'DD/MM/YYYY'), '0843551218', 'TFU64MNW5TT');
-INSERT INTO CLIENT (AdresseMailClient, NomClient, PrenomClient, AdressePostalClient, DateNaissanceClient, NumeroTelephoneClient, MotDePasseClient) VALUES ('ipsum.suspendisse.sagittis@aol.org', 'Paloma', 'Conner', '3035 Donec Ave', TO_DATE('24/03/2023', 'DD/MM/YYYY'), '0938715254', 'YJS38MIE5LV');
-INSERT INTO CLIENT (AdresseMailClient, NomClient, PrenomClient, AdressePostalClient, DateNaissanceClient, NumeroTelephoneClient, MotDePasseClient) VALUES ('dictum.ultricies@yahoo.edu', 'Stacy', 'Eaton', '139-161 Commodo Street', TO_DATE('18/12/2022', 'DD/MM/YYYY'), '0161282921', 'IQE05FII0JQ');
-INSERT INTO CLIENT (AdresseMailClient, NomClient, PrenomClient, AdressePostalClient, DateNaissanceClient, NumeroTelephoneClient, MotDePasseClient) VALUES ('feugiat.lorem.ipsum@yahoo.ca', 'Tyler', 'Collier', '650-7310 Eu Road', TO_DATE('21/06/2023', 'DD/MM/YYYY'), '0856530934', 'EPD77QUR2JQ');
-INSERT INTO CLIENT (AdresseMailClient, NomClient, PrenomClient, AdressePostalClient, DateNaissanceClient, NumeroTelephoneClient, MotDePasseClient) VALUES ('et.magnis.dis@google.com', 'Uma', 'Maddox', 'Ap #452-513 Phasellus Av.', TO_DATE('21/04/2023', 'DD/MM/YYYY'), '0665319364', 'LQT46NRG4VS');
-INSERT INTO CLIENT (AdresseMailClient, NomClient, PrenomClient, AdressePostalClient, DateNaissanceClient, NumeroTelephoneClient, MotDePasseClient) VALUES ('facilisi.sed.neque@aol.net', 'Leah', 'Finch', 'Ap #265-3177 Tellus Road', TO_DATE('29/04/2023', 'DD/MM/YYYY'), '0277634167', 'UEP56SEY4MI');
-INSERT INTO CLIENT (AdresseMailClient, NomClient, PrenomClient, AdressePostalClient, DateNaissanceClient, NumeroTelephoneClient, MotDePasseClient) VALUES ('sit@yahoo.org', 'Roanna', 'Oliver', 'Ap #334-1843 Semper. Street', TO_DATE('03/03/2023', 'DD/MM/YYYY'), '0932728383', 'CLD72TJJ7TE');
-INSERT INTO CLIENT (AdresseMailClient, NomClient, PrenomClient, AdressePostalClient, DateNaissanceClient, NumeroTelephoneClient, MotDePasseClient) VALUES ('morbi.tristique.senectus@icloud.com', 'Jeremy', 'Kemp', '380 Integer Av.', TO_DATE('30/08/2023', 'DD/MM/YYYY'), '0771365998', 'VVK76WOW3ZD');
-
-
-
-
+INSERT INTO CLIENT (AdresseMailClient, NomClient, PrenomClient, AdressePostalClient, DateNaissanceClient, NumeroTelephoneClient, MotDePasseClient) VALUES ('Jean.Didier@gmail.com', 'Didier', 'Jean', '8 rue de la fontaine 26300 Châteauneuf-sur-Isère', '01/01/1987', '0612345678', 'MotDePasse');
+INSERT INTO CLIENT (AdresseMailClient, NomClient, PrenomClient, AdressePostalClient, DateNaissanceClient, NumeroTelephoneClient, MotDePasseClient) VALUES ('Didier.Paul@orange.com', 'Paul', 'Didier', 'Chemin du rail bleu 43150 Freycenet-la-Cuche', '24/12/2000', '0634567812', '???');
+INSERT INTO CLIENT (AdresseMailClient, NomClient, PrenomClient, AdressePostalClient, DateNaissanceClient, NumeroTelephoneClient, MotDePasseClient) VALUES ('Didier.Didier@gmail.com', 'Didier', 'Didier', 'Avenue avenante 30340 Saint-Privat-des-Vieux', '11/11/1922', '0656781234', 'Didier');
+INSERT INTO CLIENT (AdresseMailClient, NomClient, PrenomClient, AdressePostalClient, DateNaissanceClient, NumeroTelephoneClient, MotDePasseClient) VALUES ('purus.maecenas@yahoo.couk', 'Shellie', 'Wilcox', '534 Phasellus St.', '30/08/2022', '0434351828', 'ROS34COV8KR');
+INSERT INTO CLIENT (AdresseMailClient, NomClient, PrenomClient, AdressePostalClient, DateNaissanceClient, NumeroTelephoneClient, MotDePasseClient) VALUES ('nec.eleifend@icloud.com', 'Kyra', 'Morin', '208-6539 Velit Ave', '29/05/2023', '0743435290', 'ISW68RYL6WH');
+INSERT INTO CLIENT (AdresseMailClient, NomClient, PrenomClient, AdressePostalClient, DateNaissanceClient, NumeroTelephoneClient, MotDePasseClient) VALUES ('nam.tempor.diam@aol.com', 'Phelan', 'Madden', '641-4358 Laoreet Ave', '12/03/2023', '0284608821', 'SNF24BNM5XB');
+INSERT INTO CLIENT (AdresseMailClient, NomClient, PrenomClient, AdressePostalClient, DateNaissanceClient, NumeroTelephoneClient, MotDePasseClient) VALUES ('sed@yahoo.ca', 'Jin', 'Sullivan', '1032 Lorem Ave', '28/12/2021', '0408212444', 'SMR25UKP2IG');
+INSERT INTO CLIENT (AdresseMailClient, NomClient, PrenomClient, AdressePostalClient, DateNaissanceClient, NumeroTelephoneClient, MotDePasseClient) VALUES ('pede.sagittis@outlook.org', 'Holmes', 'Cortez', 'Ap #692-7918 Parturient St.', '09/07/2022', '0913246031', 'XCG96WBT9HZ');
+INSERT INTO CLIENT (AdresseMailClient, NomClient, PrenomClient, AdressePostalClient, DateNaissanceClient, NumeroTelephoneClient, MotDePasseClient) VALUES ('adipiscing.non.luctus@aol.couk', 'Donovan', 'Stone', '519-9451 Fringilla Av.', '19/03/2023', '0843551218', 'TFU64MNW5TT');
+INSERT INTO CLIENT (AdresseMailClient, NomClient, PrenomClient, AdressePostalClient, DateNaissanceClient, NumeroTelephoneClient, MotDePasseClient) VALUES ('ipsum.suspendisse.sagittis@aol.org', 'Paloma', 'Conner', '3035 Donec Ave', '24/03/2023', '0938715254', 'YJS38MIE5LV');
+INSERT INTO CLIENT (AdresseMailClient, NomClient, PrenomClient, AdressePostalClient, DateNaissanceClient, NumeroTelephoneClient, MotDePasseClient) VALUES ('dictum.ultricies@yahoo.edu', 'Stacy', 'Eaton', '139-161 Commodo Street', '18/12/2022', '0161282921', 'IQE05FII0JQ');
+INSERT INTO CLIENT (AdresseMailClient, NomClient, PrenomClient, AdressePostalClient, DateNaissanceClient, NumeroTelephoneClient, MotDePasseClient) VALUES ('feugiat.lorem.ipsum@yahoo.ca', 'Tyler', 'Collier', '650-7310 Eu Road', '21/06/2023', '0856530934', 'EPD77QUR2JQ');
+INSERT INTO CLIENT (AdresseMailClient, NomClient, PrenomClient, AdressePostalClient, DateNaissanceClient, NumeroTelephoneClient, MotDePasseClient) VALUES ('et.magnis.dis@google.com', 'Uma', 'Maddox', 'Ap #452-513 Phasellus Av.', '21/04/2023', '0665319364', 'LQT46NRG4VS');
+INSERT INTO CLIENT (AdresseMailClient, NomClient, PrenomClient, AdressePostalClient, DateNaissanceClient, NumeroTelephoneClient, MotDePasseClient) VALUES ('facilisi.sed.neque@aol.net', 'Leah', 'Finch', 'Ap #265-3177 Tellus Road', '29/04/2023', '0277634167', 'UEP56SEY4MI');
+INSERT INTO CLIENT (AdresseMailClient, NomClient, PrenomClient, AdressePostalClient, DateNaissanceClient, NumeroTelephoneClient, MotDePasseClient) VALUES ('sit@yahoo.org', 'Roanna', 'Oliver', 'Ap #334-1843 Semper. Street', '03/03/2023', '0932728383', 'CLD72TJJ7TE');
+INSERT INTO CLIENT (AdresseMailClient, NomClient, PrenomClient, AdressePostalClient, DateNaissanceClient, NumeroTelephoneClient, MotDePasseClient) VALUES ('morbi.tristique.senectus@icloud.com', 'Jeremy', 'Kemp', '380 Integer Av.', '30/08/2023', '0771365998', 'VVK76WOW3ZD');
 
 /***********************************/
 /************** TARIF **************/
@@ -151,21 +146,22 @@ INSERT INTO SUPPORT (TypeSupport) VALUES ('QR Code');
 CREATE TABLE FILM (
 	NomFilm varchar2(100) not null,
 	ResumeFilm LONG VARCHAR,
-    DateSortieFilm date,
-    DureeFilm date,
+    DateSortieFilm varchar2(10),
+    DureeFilm varchar2(10),
     NombreExemplaireFilm number(3) not null,
     LimiteAgeFilm number(2) DEFAULT 0,
-    DateAjoutFilm date,
+    DateAjoutFilm varchar2(10),
     NombreTotalLocationFilm number(10) DEFAULT 0,
     NomPrenomRealisateur varchar2(100) not null,
 	constraint FILM_C1_PK_NomFilm primary key (NomFilm),
     constraint FILM_C2_NB_EXEMPLAIRES check (NombreExemplaireFilm between 0 and 101),
     constraint FILM_C3_FK_NomRealisateur foreign key (NomPrenomRealisateur) references REALISATEUR (NomPrenomRealisateur)
 );
-INSERT INTO FILM (NomFilm, ResumeFilm, DateSortieFilm, DureeFilm, NombreExemplaireFilm, LimiteAgeFilm, DateAjoutFilm, NombreTotalLocationFilm, NomPrenomRealisateur) VALUES ('Black Didier', 'Après avoir participé à l affrontement entre Iron Man et Captain AmericaN 1, le prince T Challa retourne chez lui dans la nation africaine reculée et technologiquement avancée du Wakanda, pour servir son pays en tant que nouveau roi. Cependant, le pouvoir de T Challa va bientôt être défié par des membres de son propre pays. Quand deux ennemis conspirent pour détruire le Wakanda, Black Panther doit s allier à l agent de la CIA Everett K. Ross et aux membres du Dora Milaje, les forces spéciales du Wakanda, pour éviter que le pays ne soit emporté dans un conflit mondial.', TO_DATE('2018', 'YYYY'), TO_DATE('02:14', 'HH24:MI'), 3, 0, TO_DATE('10/11/2022', 'DD/MM/YYYY'), 0, 'Didier Coogler');
-INSERT INTO FILM (NomFilm, ResumeFilm, DateSortieFilm, DureeFilm, NombreExemplaireFilm, LimiteAgeFilm, DateAjoutFilm, NombreTotalLocationFilm, NomPrenomRealisateur) VALUES ('Didier des Caraïbes : La Malédiction du Black Pearl', 'La fille du gouverneur Swann, Elizabeth, promise au commodore James Norrington, s éprend d un forgeron, nommé William Turner, qu elle a sauvé des eaux lorsqu il était enfant et auquel elle a toujours caché qu il était le fils d un pirate. Lorsque les pirates d Hector Barbossa attaquent Port Royal pour retrouver le dernier médaillon aztèque manquant du trésor maudit, Elizabeth est embarquée à bord du Black Pearl. William Turner part à sa recherche avec un autre pirate : le capitaine Jack Sparrow. L équipage du Black Pearl est hanté par la malédiction de l or aztèque, qui change toutes les âmes au cœur impur (celles qui seraient donc amenées à toucher ce trésor maudit) en squelettes, immortels et méprisés. Ceux-ci n ont alors plus aucune sensation corporelle ou gustative, c est pourquoi ils cherchent à inverser la malédiction. Au cours de cette quête pour retrouver le dernier médaillon, le capitaine Barbossa est prêt à tout pour empêcher le capitaine Jack Sparrow de récupérer le Black Pearl, qu il a perdu à la suite d une mutinerie.', TO_DATE('2003', 'YYYY'), TO_DATE('02:22', 'HH24:MI'), 5, 0, TO_DATE('10/11/2022', 'DD/MM/YYYY'), 0, 'Walt Didier');
-INSERT INTO FILM (NomFilm, ResumeFilm, DateSortieFilm, DureeFilm, NombreExemplaireFilm, LimiteAgeFilm, DateAjoutFilm, NombreTotalLocationFilm, NomPrenomRealisateur) VALUES ('Le Seigneur des anneaux : Les Deux Didiers', 'Après être entrés en Emyn Muil, Frodon Sacquet et Sam Gamegie rencontrent la créature Gollum, qui essaye de leur voler l Anneau par la force. Vaincu, il promet aux Hobbits de les guider jusqu au Mordor. Après avoir traversé l Emyn Muil et les marais des Morts, ils arrivent à la Morannon, la « Porte Noire » de Mordor. Cependant, elle est trop bien protégée pour qu ils entrent par là et Gollum leur propose de leur montrer le chemin secret de Cirith Ungol. Pendant le voyage, ils rencontrent une troupe avancée du Gondor, dirigée par Faramir, fils de l Intendant Denethor II et frère de Boromir. Il les fait prisonniers et découvre qu ils portent lAnneau unique. Il décide alors de les mener devant son père, mais, en traversant la cité détruite d Osgiliath, les soldats du Gondor sont confrontés aux forces de Sauron menées par des Nazgûl. Se rendant compte du pouvoir maléfique de l Anneau sur Frodon, qui a presque été pris par un des Nazgûl, Faramir se résout à les libérer pour qu ils accomplissent leur mission.', TO_DATE('2002', 'YYYY'), TO_DATE('03:55', 'HH24:MI'), 2, 0, TO_DATE('10/11/2022', 'DD/MM/YYYY'), 0, 'Didier Jackson');
-INSERT INTO FILM (NomFilm, ResumeFilm, DateSortieFilm, DureeFilm, NombreExemplaireFilm, LimiteAgeFilm, DateAjoutFilm, NombreTotalLocationFilm, NomPrenomRealisateur) VALUES ('Une merveilleuse histoire de Didier', 'Le film narre la première partie de la vie du physicien théoricien Stephen Hawking, sa rencontre avec sa première épouse, Jane, ses premières découvertes, son doctorat et ses succès en physique cosmologiste, et son diagnostic de sclérose latérale amyotrophique, une maladie neurodégénérative touchant les neurones moteurs mais épargnant les fonctions cognitives.', TO_DATE('2014', 'YYYY'), TO_DATE('2:03', 'HH24:MI'), 1, 0, TO_DATE('10/11/2022', 'DD/MM/YYYY'), 0, 'Didier Marsh');
+INSERT INTO FILM (NomFilm, ResumeFilm, DateSortieFilm, DureeFilm, NombreExemplaireFilm, LimiteAgeFilm, DateAjoutFilm, NombreTotalLocationFilm, NomPrenomRealisateur) VALUES ('Black Didier', 'Après avoir participé à l affrontement entre Iron Man et Captain AmericaN 1, le prince T Challa retourne chez lui dans la nation africaine reculée et technologiquement avancée du Wakanda, pour servir son pays en tant que nouveau roi. Cependant, le pouvoir de T Challa va bientôt être défié par des membres de son propre pays. Quand deux ennemis conspirent pour détruire le Wakanda, Black Panther doit s allier à l agent de la CIA Everett K. Ross et aux membres du Dora Milaje, les forces spéciales du Wakanda, pour éviter que le pays ne soit emporté dans un conflit mondial.', '2018', '02:14', 3, 0, '10/11/2022', 0, 'Didier Coogler');
+INSERT INTO FILM (NomFilm, ResumeFilm, DateSortieFilm, DureeFilm, NombreExemplaireFilm, LimiteAgeFilm, DateAjoutFilm, NombreTotalLocationFilm, NomPrenomRealisateur) VALUES ('Didier des Caraïbes : La Malédiction du Black Pearl', 'La fille du gouverneur Swann, Elizabeth, promise au commodore James Norrington, s éprend d un forgeron, nommé William Turner, qu elle a sauvé des eaux lorsqu il était enfant et auquel elle a toujours caché qu il était le fils d un pirate. Lorsque les pirates d Hector Barbossa attaquent Port Royal pour retrouver le dernier médaillon aztèque manquant du trésor maudit, Elizabeth est embarquée à bord du Black Pearl. William Turner part à sa recherche avec un autre pirate : le capitaine Jack Sparrow. L équipage du Black Pearl est hanté par la malédiction de l or aztèque, qui change toutes les âmes au cœur impur (celles qui seraient donc amenées à toucher ce trésor maudit) en squelettes, immortels et méprisés. Ceux-ci n ont alors plus aucune sensation corporelle ou gustative, c est pourquoi ils cherchent à inverser la malédiction. Au cours de cette quête pour retrouver le dernier médaillon, le capitaine Barbossa est prêt à tout pour empêcher le capitaine Jack Sparrow de récupérer le Black Pearl, qu il a perdu à la suite d une mutinerie.', '2003', '02:22', 5, 0, '10/11/2022', 0, 'Walt Didier');
+INSERT INTO FILM (NomFilm, ResumeFilm, DateSortieFilm, DureeFilm, NombreExemplaireFilm, LimiteAgeFilm, DateAjoutFilm, NombreTotalLocationFilm, NomPrenomRealisateur) VALUES ('Le Seigneur des anneaux : Les Deux Didiers', 'Après être entrés en Emyn Muil, Frodon Sacquet et Sam Gamegie rencontrent la créature Gollum, qui essaye de leur voler l Anneau par la force. Vaincu, il promet aux Hobbits de les guider jusqu au Mordor. Après avoir traversé l Emyn Muil et les marais des Morts, ils arrivent à la Morannon, la « Porte Noire » de Mordor. Cependant, elle est trop bien protégée pour qu ils entrent par là et Gollum leur propose de leur montrer le chemin secret de Cirith Ungol. Pendant le voyage, ils rencontrent une troupe avancée du Gondor, dirigée par Faramir, fils de l Intendant Denethor II et frère de Boromir. Il les fait prisonniers et découvre qu ils portent lAnneau unique. Il décide alors de les mener devant son père, mais, en traversant la cité détruite d Osgiliath, les soldats du Gondor sont confrontés aux forces de Sauron menées par des Nazgûl. Se rendant compte du pouvoir maléfique de l Anneau sur Frodon, qui a presque été pris par un des Nazgûl, Faramir se résout à les libérer pour qu ils accomplissent leur mission.', '2002', '03:55', 2, 0, '10/11/2022', 0, 'Didier Jackson');
+INSERT INTO FILM (NomFilm, ResumeFilm, DateSortieFilm, DureeFilm, NombreExemplaireFilm, LimiteAgeFilm, DateAjoutFilm, NombreTotalLocationFilm, NomPrenomRealisateur) VALUES ('Une merveilleuse histoire de Didier', 'Le film narre la première partie de la vie du physicien théoricien Stephen Hawking, sa rencontre avec sa première épouse, Jane, ses premières découvertes, son doctorat et ses succès en physique cosmologiste, et son diagnostic de sclérose latérale amyotrophique, une maladie neurodégénérative touchant les neurones moteurs mais épargnant les fonctions cognitives.', '2014', '2:03', 1, 0, '10/11/2022', 0, 'Didier Marsh');
+INSERT INTO FILM (NomFilm, ResumeFilm, DateSortieFilm, DureeFilm, NombreExemplaireFilm, LimiteAgeFilm, DateAjoutFilm, NombreTotalLocationFilm, NomPrenomRealisateur) VALUES ('Didier Potter à l école des sorciers', 'Harry Potter, jeune orphelin, a été élevé par son oncle et sa tante dans des conditions hostiles1. À l âge de onze ans, un demi-géant nommé Rubeus Hagrid lui apprend qu il possède des pouvoirs magiques1 et que ses parents ont été assassinés, des années auparavant, par le mage noir Lord Voldemort. Ce dernier avait également essayé de tuer Harry alors qu il était un bébé, mais le sort a rebondi. En fréquentant pour la première fois le monde des sorciers, accompagné par Hagrid, Harry découvre qu il y est très célèbre. Il entame sa première année d études à l école de sorcellerie Poudlard, où il apprend à maîtriser la magie aux côtés de ses deux nouveaux amis Ron Weasley et Hermione Granger1. Au cours de l année, le trio se trouve impliqué dans le mystère de la pierre philosophale, gardée au sein de l école et convoitée par un inconnu qu ils cherchent à démasquer. Ce dernier se révèle être Voldemort, qui habite le corps du professeur Quirell.', '2001', '2:32', 3, 0, '10/10/2022', 10, 'Didier Columbus');
 
 /***********************************/
 /************** JOUER **************/
@@ -186,6 +182,8 @@ INSERT INTO JOUER (NomFilm, NomPrenomActeur) VALUES ('Le Seigneur des anneaux : 
 INSERT INTO JOUER (NomFilm, NomPrenomActeur) VALUES ('Le Seigneur des anneaux : Les Deux Didiers', 'Didier McKellen');
 INSERT INTO JOUER (NomFilm, NomPrenomActeur) VALUES ('Le Seigneur des anneaux : Les Deux Didiers', 'Didier Bean');
 INSERT INTO JOUER (NomFilm, NomPrenomActeur) VALUES ('Une merveilleuse histoire de Didier', 'Didier Redmayne');
+INSERT INTO JOUER (NomFilm, NomPrenomActeur) VALUES ('Didier Potter à l école des sorciers', 'Didier Radcliffe');
+INSERT INTO JOUER (NomFilm, NomPrenomActeur) VALUES ('Didier Potter à l école des sorciers', 'Didier Watson');
 
 /***********************************/
 /************ CATEGORIE ************/
@@ -201,21 +199,26 @@ INSERT INTO CATEGORIE (NomFilm, NomGenre) VALUES ('Black Didier', 'Super-héros'
 INSERT INTO CATEGORIE (NomFilm, NomGenre) VALUES ('Didier des Caraïbes : La Malédiction du Black Pearl', 'Fantasy');
 INSERT INTO CATEGORIE (NomFilm, NomGenre) VALUES ('Didier des Caraïbes : La Malédiction du Black Pearl', 'Aventure');
 INSERT INTO CATEGORIE (NomFilm, NomGenre) VALUES ('Le Seigneur des anneaux : Les Deux Didiers', 'Fantasy');
+INSERT INTO CATEGORIE (NomFilm, NomGenre) VALUES ('Une merveilleuse histoire de Didier', 'Biographique');
+INSERT INTO CATEGORIE (NomFilm, NomGenre) VALUES ('Didier Potter à l école des sorciers', 'Fantasy');
+INSERT INTO CATEGORIE (NomFilm, NomGenre) VALUES ('Didier Potter à l école des sorciers', 'Fantasy');
+INSERT INTO CATEGORIE (NomFilm, NomGenre) VALUES ('Didier Potter à l école des sorciers', 'Action');
+INSERT INTO CATEGORIE (NomFilm, NomGenre) VALUES ('Didier Potter à l école des sorciers', 'Aventure');
 
 /***********************************/
 /********** CARTE_BANCAIRE *********/
 /***********************************/
 CREATE TABLE CARTE_BANCAIRE (
     NumeroCarteBancaire varchar2(16) not null,
-    ExpirationCarteBancaire date,
+    ExpirationCarteBancaire varchar2(10),
     PictogrammeCarteBancaire varchar2(3),
     AdresseMailClient varchar2(100) not null,
     constraint BANQUE_C1_PK_NumCarteBanque primary key (NumeroCarteBancaire),
     constraint BANQUE_C2_FK_MailClient foreign key (AdresseMailClient) references CLIENT (AdresseMailClient)
 );
-INSERT INTO CARTE_BANCAIRE (NumeroCarteBancaire, ExpirationCarteBancaire, PictogrammeCarteBancaire, AdresseMailClient) VALUES ('0123456789101112', TO_DATE('24/08', 'DD/MM'), '012', 'Jean.Didier@gmail.com');
-INSERT INTO CARTE_BANCAIRE (NumeroCarteBancaire, ExpirationCarteBancaire, PictogrammeCarteBancaire, AdresseMailClient) VALUES ('4567891011120123', TO_DATE('14/02', 'DD/MM'), '345', 'Didier.Paul@orange.com');
-INSERT INTO CARTE_BANCAIRE (NumeroCarteBancaire, ExpirationCarteBancaire, PictogrammeCarteBancaire, AdresseMailClient) VALUES ('8910111201234567', TO_DATE('04/04', 'DD/MM'), '678', 'Didier.Didier@gmail.com');
+INSERT INTO CARTE_BANCAIRE (NumeroCarteBancaire, ExpirationCarteBancaire, PictogrammeCarteBancaire, AdresseMailClient) VALUES ('0123456789101112', '24/08', '012', 'Jean.Didier@gmail.com');
+INSERT INTO CARTE_BANCAIRE (NumeroCarteBancaire, ExpirationCarteBancaire, PictogrammeCarteBancaire, AdresseMailClient) VALUES ('4567891011120123', '14/02', '345', 'Didier.Paul@orange.com');
+INSERT INTO CARTE_BANCAIRE (NumeroCarteBancaire, ExpirationCarteBancaire, PictogrammeCarteBancaire, AdresseMailClient) VALUES ('8910111201234567', '04/04', '678', 'Didier.Didier@gmail.com');
 
 /***********************************/
 /************* SOUHAIT *************/
@@ -228,12 +231,13 @@ CREATE TABLE SOUHAIT (
     constraint SOUHAIT_C3_FK_MailClient foreign key (AdresseMailClient) references CLIENT (AdresseMailClient)
 );
 INSERT INTO SOUHAIT (NomFilm, AdresseMailClient) VALUES ('Black Didier', 'Didier.Didier@gmail.com');
+INSERT INTO SOUHAIT (NomFilm, AdresseMailClient) VALUES ('Didier Potter à l école des sorciers', 'ipsum.suspendisse.sagittis@aol.org');
 
 /***********************************/
 /************* EMPRUNT *************/
 /***********************************/
 CREATE TABLE EMPRUNT (
-    DateDebutEmprunt date not null,
+    DateDebutEmprunt varchar2(10) not null,
     NomFilm varchar2(100) not null,
     AdresseMailClient varchar2(100) not null,
     TypeSupport varchar2(100),
@@ -244,9 +248,11 @@ CREATE TABLE EMPRUNT (
     constraint EMPRUNT_C4_FK_TypeSupport foreign key (TypeSupport) references SUPPORT (TypeSupport),
     constraint EMPRUNT_C5_FK_NomTarif foreign key (NomTarif) references TARIF (NomTarif)
 );
-INSERT INTO EMPRUNT (DateDebutEmprunt, NomFilm, AdresseMailClient, TypeSupport, NomTarif) VALUES (TO_DATE('20/11/2022', 'DD/MM/YYYY'), 'Black Didier', 'Jean.Didier@gmail.com', 'Physique', 'Défaut');
-INSERT INTO EMPRUNT (DateDebutEmprunt, NomFilm, AdresseMailClient, TypeSupport, NomTarif) VALUES (TO_DATE('20/11/2022', 'DD/MM/YYYY'), 'Didier des Caraïbes : La Malédiction du Black Pearl', 'Jean.Didier@gmail.com', 'QR Code', 'Défaut');
-
+INSERT INTO EMPRUNT (DateDebutEmprunt, NomFilm, AdresseMailClient, TypeSupport, NomTarif) VALUES ('20/11/2022', 'Black Didier', 'Jean.Didier@gmail.com', 'Physique', 'Défaut');
+INSERT INTO EMPRUNT (DateDebutEmprunt, NomFilm, AdresseMailClient, TypeSupport, NomTarif) VALUES ('20/11/2022', 'Didier des Caraïbes : La Malédiction du Black Pearl', 'Jean.Didier@gmail.com', 'QR Code', 'Défaut');
+INSERT INTO EMPRUNT (DateDebutEmprunt, NomFilm, AdresseMailClient, TypeSupport, NomTarif) VALUES ('20/11/2022', 'Didier Potter à l école des sorciers', 'nec.eleifend@icloud.com', 'Physique', 'Défaut');
+INSERT INTO EMPRUNT (DateDebutEmprunt, NomFilm, AdresseMailClient, TypeSupport, NomTarif) VALUES ('20/11/2022', 'Didier Potter à l école des sorciers', 'morbi.tristique.senectus@icloud.com', 'Physique', 'Défaut');
+INSERT INTO EMPRUNT (DateDebutEmprunt, NomFilm, AdresseMailClient, TypeSupport, NomTarif) VALUES ('20/11/2022', 'Didier Potter à l école des sorciers', 'dictum.ultricies@yahoo.edu', 'Physique', 'Adhérent');
 /***********************************/
 /********* CARTE_ABONNEMENT ********/
 /***********************************/
@@ -258,17 +264,18 @@ CREATE TABLE CARTE_ABONNEMENT (
     constraint ABONNEMENT_C1_PK_NomCarte_Mail primary key (NomCarteAbonnement, AdresseMailClient),
     constraint ABONNEMENT_C2_FK_Mail foreign key (AdresseMailClient) references CLIENT (AdresseMailClient)
 );
-INSERT INTO CARTE_ABONNEMENT (NomCarteAbonnement, AdresseMailClient, SoldeCarteAbonnement, AgePropietaireCarteAbonnement) VALUES ('CarteDeDidiette', 'Didier.Didier@gmail.com', 50, 15);
+INSERT INTO CARTE_ABONNEMENT (NomCarteAbonnement, AdresseMailClient, SoldeCarteAbonnement, AgePropietaireCarteAbonnement) VALUES ('CarteDeDidiette', 'Didier.Didier@gmail.com', 5, 15);
 INSERT INTO CARTE_ABONNEMENT (NomCarteAbonnement, AdresseMailClient, SoldeCarteAbonnement, AgePropietaireCarteAbonnement) VALUES ('CarteDeDidiot', 'Didier.Didier@gmail.com', 50, 7);
+INSERT INTO CARTE_ABONNEMENT (NomCarteAbonnement, AdresseMailClient, SoldeCarteAbonnement, AgePropietaireCarteAbonnement) VALUES ('CarteDictum', 'dictum.ultricies@yahoo.edu', 500, 33);
 
 /***********************************/
 /************ HISTORIQUE ***********/
 /***********************************/
 CREATE TABLE HISTORIQUE (
-    DateDebutEmprunt date not null,
+    DateDebutEmprunt varchar2(10) not null,
     NomFilm varchar2(100) not null,
     AdresseMailClient varchar2(100) not null,
-    DateFinEmprunt date not null,
+    DateFinEmprunt varchar2(10) not null,
     TypeSupport varchar2(100) not null,
     constraint HISTORIQUE_C1_PK_Date_Nom_Mail primary key (DateDebutEmprunt, NomFilm, AdresseMailClient),
     constraint HISTORIQUE_C2_FK_NomFilm foreign key (NomFilm) references FILM (NomFilm),
