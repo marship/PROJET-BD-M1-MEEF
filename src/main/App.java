@@ -21,15 +21,15 @@ public class App {
 	static Session s1;
 
 	public static void main(String args[]) {
-		try{
-			
-		/* Menu utilisateur */
-		System.out.println("Bienvenue sur Didier Futur !");
-		s1 = new Session();
-		s1.open();
-		menuPrincipal();
-		s1.close();
-		System.out.println("Merci d'avoir utilisé Didier Futur et à bientôt !");
+		try {
+
+			/* Menu utilisateur */
+			System.out.println("Bienvenue sur Didier Futur !");
+			s1 = new Session();
+			s1.open();
+			menuPrincipal();
+			s1.close();
+			System.out.println("Merci d'avoir utilisé Didier Futur et à bientôt !");
 			// traitement d'exception
 		} catch (SQLException e) {
 			System.err.println("failed");
@@ -42,7 +42,7 @@ public class App {
 		}
 	}
 
-	private static void menuPrincipal() throws SQLException  {
+	private static void menuPrincipal() throws SQLException {
 		System.out.println("Que souhaitez-vous faire ?");
 		int choix;
 		System.out.println("[1] Louer un film");
@@ -66,7 +66,7 @@ public class App {
 		}
 	}
 
-	private static void location() throws SQLException  {
+	private static void location() throws SQLException {
 		System.out.println("Que souhaitez-vous faire ?");
 		int choix;
 		System.out.println("[1] Derniers films en date");
@@ -87,7 +87,7 @@ public class App {
 				do {
 					nomFL = afficherRechercheFilm(recherche, 5);
 					choix = LectureClavier.lireEntier("");
-					if (choix >= 1 && (choix < 5)) {
+					if (choix >= 1 && (choix <= 5)) {
 						filmVoulu = locD.detailFilm(nomFL[choix - 1]);
 						boucle = afficherDetailFilm(filmVoulu);
 					} else {
@@ -123,7 +123,7 @@ public class App {
 							do {
 								nomFL = afficherRechercheFilm(recherche, recherche.getnbFilm());
 								choix = LectureClavier.lireEntier("");
-								if (choix >= 1 && (choix < recherche.getnbFilm())) {
+								if (choix >= 1 && (choix <= recherche.getnbFilm())) {
 									filmVoulu = locD.detailFilm(nomFL[choix - 1]);
 									boucle = afficherDetailFilm(filmVoulu);
 								} else {
@@ -157,7 +157,7 @@ public class App {
 						do {
 							nomFL = afficherRechercheFilm(recherche, recherche.getnbFilm());
 							choix = LectureClavier.lireEntier("");
-							if (choix >= 1 && (choix < recherche.getnbFilm())) {
+							if (choix >= 1 && (choix <= recherche.getnbFilm())) {
 								filmVoulu = locD.detailFilm(nomFL[choix - 1]);
 								boucle = afficherDetailFilm(filmVoulu);
 							} else {
@@ -172,6 +172,8 @@ public class App {
 					case 3:
 						System.out.println("Entrez la limite d'age :");
 						rechI = LectureClavier.lireEntier("");
+						System.out.println("Comment voulez vous rechercher ?");
+						System.out.println("[1] Tous les film INTERDIS pour cette limite");
 						recherche = locD.rechercheParLimiteAge(rechI);
 						if (recherche.getnbFilm() == 0) {
 							System.out.println("Aucun film ne correspond à votre recherche !");
@@ -179,7 +181,7 @@ public class App {
 							do {
 								nomFL = afficherRechercheFilm(recherche, recherche.getnbFilm());
 								choix = LectureClavier.lireEntier("");
-								if (choix >= 1 && (choix < recherche.getnbFilm())) {
+								if (choix >= 1 && (choix <= recherche.getnbFilm())) {
 									filmVoulu = locD.detailFilm(nomFL[choix - 1]);
 									boucle = afficherDetailFilm(filmVoulu);
 								} else {
@@ -226,7 +228,7 @@ public class App {
 								do {
 									nomFL = afficherRechercheFilm(recherche, recherche.getnbFilm());
 									choix = LectureClavier.lireEntier("");
-									if (choix >= 1 && (choix < recherche.getnbFilm())) {
+									if (choix >= 1 && (choix <= recherche.getnbFilm())) {
 										filmVoulu = locD.detailFilm(nomFL[choix - 1]);
 										boucle = afficherDetailFilm(filmVoulu);
 									} else {
@@ -276,7 +278,7 @@ public class App {
 								do {
 									nomFL = afficherRechercheFilm(recherche, recherche.getnbFilm());
 									choix = LectureClavier.lireEntier("");
-									if (choix >= 1 && (choix < recherche.getnbFilm())) {
+									if (choix >= 1 && (choix <= recherche.getnbFilm())) {
 										filmVoulu = locD.detailFilm(nomFL[choix - 1]);
 										boucle = afficherDetailFilm(filmVoulu);
 									} else {
@@ -298,7 +300,7 @@ public class App {
 						do {
 							nomFL = afficherRechercheFilm(recherche, 10);
 							choix = LectureClavier.lireEntier("");
-							if (choix >= 1 && (choix < 10)) {
+							if (choix >= 1 && (choix <= 10)) {
 								filmVoulu = locD.detailFilm(nomFL[choix - 1]);
 								boucle = afficherDetailFilm(filmVoulu);
 							} else {
@@ -322,7 +324,7 @@ public class App {
 		menuPrincipal();
 	}
 
-	private static String[] afficherRechercheFilm(RechercheFilm recherche, int nbFilm) throws SQLException  {
+	private static String[] afficherRechercheFilm(RechercheFilm recherche, int nbFilm) throws SQLException {
 		String nomF = "";
 		String[] nomFL = new String[nbFilm];
 		int nb = 1;
@@ -336,7 +338,7 @@ public class App {
 		return nomFL;
 	}
 
-	private static boolean afficherDetailFilm(Film f) throws SQLException  {
+	private static boolean afficherDetailFilm(Film f) throws SQLException {
 
 		boolean boucle = true;
 
@@ -344,7 +346,7 @@ public class App {
 		System.out.println();
 		System.out.print("Sorti le : " + f.getdateSortieFilm() + "/" + f.getdureeFilm() + "/");
 		for (Iterator<Genre> it = f.getGenre().iterator(); it.hasNext();) {
-			System.out.print(it.next().getnomGenre());
+			System.out.print(it.next().getnomGenre() + " ");
 		}
 		if (f.getlimiteAgeFilm() != 0) {
 			System.out.println("/Interdit aux moins de " + f.getlimiteAgeFilm() + "ans");
@@ -354,13 +356,13 @@ public class App {
 		System.out.println("Un film de : " + f.getNomPrenomRealisateur());
 		System.out.println("Avec :");
 		for (Iterator<Personne> it = f.getActeur().iterator(); it.hasNext();) {
-			System.out.print(it.next().getnomPersonne());
+			System.out.print(it.next().getnomPersonne() + " ");
 		}
 		System.out.println();
 		System.out.println("SYNOPSIS :");
 		System.out.println(f.getresumeFilm());
 		System.out.println("Film ajouté le :" + f.getdateAjoutFilm() + ", Loué " + f.getnombreTotalLocationFilm());
-		System.out.println("Il reste " + f.getnombreExemplaireFilm() + "exmplaire en physique du film");
+		System.out.println("Il reste " + f.getnombreExemplaireFilm() + " exmplaire en physique du film");
 		System.out.println();
 		System.out.println("Que voulez vous faire ?");
 		System.out.println("[1] Le louer");
@@ -380,7 +382,7 @@ public class App {
 		return boucle;
 	}
 
-	private static boolean choixLocation(Film f) throws SQLException  {
+	private static boolean choixLocation(Film f) throws SQLException {
 		boolean boucle = true;
 		System.out.println("Vous voulez louer le film :" + f.getnomFilm());
 		System.out.println("Merci de vous connecter ou de faire un compte");
@@ -398,13 +400,13 @@ public class App {
 				System.out.println("Entrez votre mot de passe :");
 				String mdp = LectureClavier.lireChaine();
 				ClientDAO cliD = new ClientDAO(s1.getSession());
-				if (!cliD.connexion(mail, mdp)) {
+				if (cliD.connexion(mail, mdp)) {
 					EmpruntDAO empD = new EmpruntDAO(s1.getSession());
 					if (empD.nbEmprunt(mail) == 3) {
 						System.out.println(
 								"Trois locations au maximun en même temps !\nRendez des films et revenez nous voir !");
 						System.out.println(
-								"Vous pouvez l'ajouter dans votre liste de shouait en attendant.\nRépondez par o/n");
+								"Vous pouvez l'ajouter dans votre liste de souhait en attendant.\nRépondez par o/n");
 						boolean ajout = LectureClavier.lireOuiNon("");
 						if (ajout) {
 							cliD.ajoutWish(mail, f.getnomFilm());
@@ -428,13 +430,15 @@ public class App {
 						choix = LectureClavier.lireEntier("");
 						String tarif;
 						if (choix == 2) {
-							tarif = "Adhérent"; // Faire afficher la liste des cartes du mec, lui faire choisir, vérif
+							tarif = "Adherent"; // Faire afficher la liste des cartes du mec, lui faire choisir, vérif
 												// la somme sur la carte, pouvoir en faire une nouvelle
 						} else {
-							tarif = "Défaut";
+							tarif = "Defaut";
 						}
 						Date jour = new Date();
-						empD.empruntFilm(f.getnomFilm(), mail, jour, type, tarif);
+						System.out.println(mail);
+						empD.empruntFilm(f.getnomFilm(), mail, jour.toString(), type, tarif);
+						System.out.println("Bon visionnage !");
 					}
 					boucle = false;
 				} else {
@@ -448,7 +452,7 @@ public class App {
 		return boucle;
 	}
 
-	private static boolean choixWish(Film f) throws SQLException  {
+	private static boolean choixWish(Film f) throws SQLException {
 		boolean boucle = true;
 		System.out.println("Vous voulez mettre dans votre liste le film :" + f.getnomFilm());
 		System.out.println("Merci de vous connecter ou de faire un compte");
@@ -466,8 +470,9 @@ public class App {
 				System.out.println("Entrez votre mot de passe :");
 				String mdp = LectureClavier.lireChaine();
 				ClientDAO cliD = new ClientDAO(s1.getSession());
-				if (!cliD.connexion(mail, mdp)) {
+				if (cliD.connexion(mail, mdp)) {
 					cliD.ajoutWish(mail, f.getnomFilm());
+					System.out.println("Et voilà, le film est ajouté dans votre liste de souhaits !");
 					boucle = false;
 				} else {
 					System.out.println("Erreur de connexion, retour sur la page du film");
@@ -480,7 +485,7 @@ public class App {
 		return boucle;
 	}
 
-	private static void rendre() throws SQLException  {
+	private static void rendre() throws SQLException {
 		System.out.println("Donnez l'adresse mail de la personne ayant emprunter le film :");
 		String mail = LectureClavier.lireChaine();
 		System.out.println(mail);
@@ -530,7 +535,7 @@ public class App {
 		menuPrincipal();
 	}
 
-	private static void gestion() throws SQLException  {
+	private static void gestion() throws SQLException {
 		System.out.println("Que voulez vous faire ?");
 		System.out.println("[1] Gerer les informations de mon compte");
 		System.out.println("[2] Creer un compte");
@@ -553,7 +558,7 @@ public class App {
 		}
 	}
 
-	private static void creationCompte() throws SQLException  {
+	private static void creationCompte() throws SQLException {
 		System.out.println("Donnez votre adresse mail, ou tappez n pour annuler :");
 		String mail = LectureClavier.lireChaine();
 		if (!mail.equals("n")) {
@@ -605,7 +610,7 @@ public class App {
 		}
 	}
 
-	private static void creationCarteAbonnement(String mail) throws SQLException  {
+	private static void creationCarteAbonnement(String mail) throws SQLException {
 		System.out.println("Merci de bien vouloir faire une carte abonnée !");
 		ClientDAO cliD = new ClientDAO(s1.getSession());
 		System.out.println("Comment voulez vous nommer cette carte ?");
@@ -636,8 +641,8 @@ public class App {
 				"Et voilà ! Merci beaucoup de nous faire confiance ;)\nTout est 100000% sécurisé n\'ayez pas peur ^^ !");
 	}
 
-	private static void changementInformations() throws SQLException  {
-		System.out.println("Donnez votre adresse mail, ou tappez n pour annuler et revenir au menu principal:");
+	private static void changementInformations() throws SQLException {
+		System.out.println("Donnez votre adresse mail, ou tapez n pour annuler et revenir au menu principal:");
 		String mail = LectureClavier.lireChaine();
 
 		if (!mail.equals("n")) {
@@ -730,7 +735,7 @@ public class App {
 		menuPrincipal();
 	}
 
-	private static void modifCarteAbo(String mail) throws SQLException  {
+	private static void modifCarteAbo(String mail) throws SQLException {
 		System.out.println("Que voulez vous faire ?");
 		System.out.println("[1] Faire une nouvelle carte");
 		System.out.println("[2] Modifier mes cartes");
@@ -813,7 +818,7 @@ public class App {
 		}
 	}
 
-	private static void listeSouhait(String mail) throws SQLException  {
+	private static void listeSouhait(String mail) throws SQLException {
 		ClientDAO cliD = new ClientDAO(s1.getSession());
 		Client client = cliD.listeWish(mail);
 		System.out.println(
