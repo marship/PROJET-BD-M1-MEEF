@@ -7,11 +7,11 @@ import java.util.Set;
 public class Film {
     private String nomFilm;
     private String resumeFilm;
-    private Date dateSortieFilm;
-    private Date dureeFilm;
+    private String dateSortieFilm;
+    private String dureeFilm;
     private int nombreExemplaireFilm;
     private int limiteAgeFilm;
-    private Date dateAjoutFilm;
+    private String dateAjoutFilm;
     private int nombreTotalLocationFilm;
     private String NomPrenomRealisateur;
 
@@ -37,20 +37,20 @@ public class Film {
     }
 
     // Date Sortie du Film
-    public Date getdateSortieFilm() {
+    public String getdateSortieFilm() {
         return dateSortieFilm;
     }
 
-    public void setdateSortieFilm(Date d) {
+    public void setdateSortieFilm(String d) {
         dateSortieFilm = d;
     }
 
     // Durée du Film
-    public Date getdureeFilm() {
+    public String getdureeFilm() {
         return dureeFilm;
     }
 
-    public void setdureeFilm(Date d) {
+    public void setdureeFilm(String d) {
         dureeFilm = d;
     }
 
@@ -73,11 +73,11 @@ public class Film {
     }
 
     // Date d'Ajout du Film
-    public Date getdateAjoutFilm() {
+    public String getdateAjoutFilm() {
         return dateAjoutFilm;
     }
 
-    public void setdateAjoutFilm(Date d) {
+    public void setdateAjoutFilm(String d) {
         dateAjoutFilm = d;
     }
 
