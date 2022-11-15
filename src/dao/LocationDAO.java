@@ -124,7 +124,7 @@ public class LocationDAO extends DAO<Client> {
 
 		try (PreparedStatement lesFilms = conn
 				.prepareStatement(
-						"SELECT NomFilm FROM FILM WHERE LimiteAgeFilm >= ?")) {
+						"SELECT NomFilm FROM FILM WHERE LimiteAgeFilm <= ?")) {
 
 			lesFilms.setInt(1, lim);
 
@@ -274,7 +274,7 @@ public class LocationDAO extends DAO<Client> {
 				recherche.addRealisateur(r);
 				nbRealisateur++;
 			}
-			recherche.setnbActeur(nbRealisateur);
+			recherche.setnbRealisateur(nbRealisateur);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -297,31 +297,30 @@ public class LocationDAO extends DAO<Client> {
 			while (resultSet.next()) {
 				film.setnomFilm(nomF);
 				film.setresumeFilm(resultSet.getString(2));
-				film.setresumeFilm(resultSet.getString(2));
-				film.setdateSortieFilm(resultSet.getDate(3));
-				film.setdureeFilm(resultSet.getDate(4));
+				film.setdateSortieFilm(resultSet.getString(3));
+				film.setdureeFilm(resultSet.getString(4));
 				film.setnombreExemplaireFilm(resultSet.getInt(5));
 				film.setlimiteAgeFilm(resultSet.getInt(6));
-				film.setdateAjoutFilm(resultSet.getDate(7));
+				film.setdateAjoutFilm(resultSet.getString(7));
 				film.setnombreTotalLocationFilm(resultSet.getInt(8));
 				film.setNomPrenomRealisateur(resultSet.getString(9));
 			}
 
 			lesActeurs.setString(1, nomF);
-			resultSet = lesFilms.executeQuery();
+			resultSet = lesActeurs.executeQuery();
 
 			while (resultSet.next()) {
 				Personne p = new Personne();
-				p.setnomPersonne(resultSet.getString(1));
+				p.setnomPersonne(resultSet.getString(2));
 				film.addActeur(p);
 			}
 
 			lesGenre.setString(1, nomF);
-			resultSet = lesFilms.executeQuery();
+			resultSet = lesGenre.executeQuery();
 
 			while (resultSet.next()) {
 				Genre g = new Genre();
-				g.setnomGenre(resultSet.getString(1));
+				g.setnomGenre(resultSet.getString(2));
 				film.addGenre(g);
 			}
 
