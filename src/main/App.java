@@ -545,7 +545,7 @@ public class App {
 		System.out.println("Que voulez vous faire ?");
 		System.out.println("[1] Gerer les informations de mon compte");
 		System.out.println("[2] Creer un compte");
-		System.out.println("[3] Revenir au menu principal");
+		System.out.println("[0] Revenir au menu principal");
 		int choix = LectureClavier.lireEntier("");
 		switch (choix) {
 			case 1:
@@ -554,7 +554,7 @@ public class App {
 			case 2:
 				creationCompte(true);
 				break;
-			case 3:
+			case 0:
 				menuPrincipal();
 				break;
 			default:
