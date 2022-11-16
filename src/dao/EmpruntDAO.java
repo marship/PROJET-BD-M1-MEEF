@@ -13,7 +13,6 @@ public class EmpruntDAO extends DAO<Film> {
 		super(conn);
 	}
 
-
 	public int nbEmprunt(Object g) {
 		int nbEmprunt = 0;
 
@@ -57,6 +56,25 @@ public class EmpruntDAO extends DAO<Film> {
 		return client;
 	}
 
+	public boolean aDejaLeFilm(String mail, String nomF) {
+		boolean sortie = false;
+		try (PreparedStatement lesFilms = conn
+				.prepareStatement("SELECT * FROM EMPRUNT WHERE AdresseMailClient = ? AND NomFilm = ?");) {
+
+			lesFilms.setString(1, mail);
+			lesFilms.setString(2, nomF);
+			ResultSet resultSet = lesFilms.executeQuery();
+
+			if (resultSet.next()) {
+				sortie = true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return sortie;
+	}
+
 	public void rendreFilm(String mail, String nomF) {
 		try (PreparedStatement suppFilm = conn
 				.prepareStatement("DELETE FROM EMPRUNT WHERE AdresseMailClient = ? AND NomFilm = ?");) {
@@ -72,7 +90,8 @@ public class EmpruntDAO extends DAO<Film> {
 
 	public void empruntFilm(String mail, String nomF, String date, String type, String tarif) {
 		try (PreparedStatement addFilm = conn
-				.prepareStatement("INSERT INTO EMPRUNT (DateDebutEmprunt, NomFilm, AdresseMailClient, TypeSupport, NomTarif) VALUES (?, ?, ?, ?, ?)");) {
+				.prepareStatement(
+						"INSERT INTO EMPRUNT (DateDebutEmprunt, NomFilm, AdresseMailClient, TypeSupport, NomTarif) VALUES (?, ?, ?, ?, ?)");) {
 
 			addFilm.setString(1, date);
 			addFilm.setString(2, nomF);
@@ -86,13 +105,11 @@ public class EmpruntDAO extends DAO<Film> {
 		}
 	}
 
-
 	@Override
 	public boolean create(Film obj) throws SQLException {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 
 	@Override
 	public Film read(Object obj) throws SQLException {
@@ -100,13 +117,11 @@ public class EmpruntDAO extends DAO<Film> {
 		return null;
 	}
 
-
 	@Override
 	public boolean update(Film obj) throws SQLException {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 
 	@Override
 	public boolean delete(Film obj) throws SQLException {
