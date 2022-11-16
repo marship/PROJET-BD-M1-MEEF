@@ -1,6 +1,9 @@
 package main;
 
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -172,8 +175,6 @@ public class App {
 					case 3:
 						System.out.println("Entrez la limite d'age :");
 						rechI = LectureClavier.lireEntier("");
-						System.out.println("Comment voulez vous rechercher ?");
-						System.out.println("[1] Tous les film INTERDIS pour cette limite");
 						recherche = locD.rechercheParLimiteAge(rechI);
 						if (recherche.getnbFilm() == 0) {
 							System.out.println("Aucun film ne correspond à votre recherche !");
@@ -268,7 +269,7 @@ public class App {
 								}
 								recherche = locD.rechercheParRealisateur(nomRL[choix - 1]);
 							} else {
-								System.out.println("Entrez le nom de l'acteur rechercher :");
+								System.out.println("Entrez le nom du réalisateur recherché :");
 								rechS = LectureClavier.lireChaine();
 								recherche = locD.rechercheParRealisateur(rechS);
 							}
@@ -392,7 +393,7 @@ public class App {
 		int choix = LectureClavier.lireEntier("");
 		switch (choix) {
 			case 2:
-				creationCompte();
+				creationCompte(false);
 				System.out.println("Merci de vous connectez");
 			case 1:
 				System.out.println("Entrez votre adresse mail :");
@@ -402,45 +403,52 @@ public class App {
 				ClientDAO cliD = new ClientDAO(s1.getSession());
 				if (cliD.connexion(mail, mdp)) {
 					EmpruntDAO empD = new EmpruntDAO(s1.getSession());
-					if (empD.nbEmprunt(mail) == 3) {
-						System.out.println(
-								"Trois locations au maximun en même temps !\nRendez des films et revenez nous voir !");
-						System.out.println(
-								"Vous pouvez l'ajouter dans votre liste de souhait en attendant.\nRépondez par o/n");
-						boolean ajout = LectureClavier.lireOuiNon("");
-						if (ajout) {
-							cliD.ajoutWish(mail, f.getnomFilm());
+					if (!empD.aDejaLeFilm(mail, f.getnomFilm())) {
+						if (empD.nbEmprunt(mail) == 3) {
+							System.out.println(
+									"Trois locations au maximun en même temps !\nRendez des films et revenez nous voir !");
+							System.out.println(
+									"Vous pouvez l'ajouter dans votre liste de souhait en attendant.\nRépondez par o/n");
+							boolean ajout = LectureClavier.lireOuiNon("");
+							if (ajout) {
+								cliD.ajoutWish(mail, f.getnomFilm());
+							}
+						} else {
+							System.out.println("Quel type de support voulez vous ?");
+							System.out.println("[1] QR Code");
+							if (f.getnombreExemplaireFilm() > 0) {
+								System.out.println("[2] Physique");
+							}
+							choix = LectureClavier.lireEntier("");
+							String type;
+							if (choix == 2 && f.getnombreExemplaireFilm() > 0) {
+								type = "Physique";
+							} else {
+								type = "QR Code";
+							}
+							System.out.println("Comment voulez vous payer ?");
+							System.out.println("[1] Carte bancaire");
+							System.out.println("[2] Carte abonné");
+							choix = LectureClavier.lireEntier("");
+							String tarif;
+							if (choix == 2) {
+								tarif = "Adherent"; // Faire afficher la liste des cartes du mec, lui faire choisir,
+													// vérif
+													// la somme sur la carte, pouvoir en faire une nouvelle
+							} else {
+								tarif = "Defaut";
+							}
+							Date date = Calendar.getInstance().getTime();
+							DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+							String jour = dateFormat.format(date);
+							empD.empruntFilm(mail, f.getnomFilm(), jour, type, tarif);
+							System.out.println("Bon visionnage !");
 						}
+						boucle = false;
 					} else {
-						System.out.println("Quel type de support voulez vous ?");
-						System.out.println("[1] QR Code");
-						if (f.getnombreExemplaireFilm() > 0) {
-							System.out.println("[2] Physique");
-						}
-						choix = LectureClavier.lireEntier("");
-						String type;
-						if (choix == 2 && f.getnombreExemplaireFilm() > 0) {
-							type = "Physique";
-						} else {
-							type = "QR Code";
-						}
-						System.out.println("Comment voulez vous payer ?");
-						System.out.println("[1] Carte bancaire");
-						System.out.println("[2] Carte abonné");
-						choix = LectureClavier.lireEntier("");
-						String tarif;
-						if (choix == 2) {
-							tarif = "Adherent"; // Faire afficher la liste des cartes du mec, lui faire choisir, vérif
-												// la somme sur la carte, pouvoir en faire une nouvelle
-						} else {
-							tarif = "Defaut";
-						}
-						Date jour = new Date();
-						System.out.println(mail);
-						empD.empruntFilm(f.getnomFilm(), mail, jour.toString(), type, tarif);
-						System.out.println("Bon visionnage !");
+						System.out.println("Vous avez déjà ce film en cours de location !");
+						boucle = true;
 					}
-					boucle = false;
 				} else {
 					System.out.println("Erreur de connexion, retour sur la page du film");
 					afficherDetailFilm(f);
@@ -462,7 +470,7 @@ public class App {
 		int choix = LectureClavier.lireEntier("");
 		switch (choix) {
 			case 2:
-				creationCompte();
+				creationCompte(false);
 				System.out.println("Merci de vous connectez");
 			case 1:
 				System.out.println("Entrez votre adresse mail :");
@@ -488,8 +496,6 @@ public class App {
 	private static void rendre() throws SQLException {
 		System.out.println("Donnez l'adresse mail de la personne ayant emprunter le film :");
 		String mail = LectureClavier.lireChaine();
-		System.out.println(mail);
-
 		EmpruntDAO empD = new EmpruntDAO(s1.getSession());
 		int nbEmprunt = empD.nbEmprunt(mail);
 		System.out.println(nbEmprunt);
@@ -546,7 +552,7 @@ public class App {
 				changementInformations();
 				break;
 			case 2:
-				creationCompte();
+				creationCompte(true);
 				break;
 			case 3:
 				menuPrincipal();
@@ -558,7 +564,7 @@ public class App {
 		}
 	}
 
-	private static void creationCompte() throws SQLException {
+	private static void creationCompte(boolean menu) throws SQLException {
 		System.out.println("Donnez votre adresse mail, ou tappez n pour annuler :");
 		String mail = LectureClavier.lireChaine();
 		if (!mail.equals("n")) {
@@ -605,8 +611,11 @@ public class App {
 				}
 			} else {
 				System.out.println("Cette adresse mail est déjà prise !");
-				creationCompte();
+				creationCompte(menu);
 			}
+		}
+		if (menu) {
+			menuPrincipal();
 		}
 	}
 
@@ -834,7 +843,7 @@ public class App {
 		}
 		System.out.println("[0] Retour");
 		int choix = LectureClavier.lireEntier("");
-		if (nb >= 1 && nb <= client.getnbWish()) {
+		if (choix >= 1 && choix <= client.getnbWish()) {
 			f = nomFL[nb - 1];
 			System.out.println("Que voulez vous faire ?");
 			System.out.println("[1] Aller sur la page du film");
