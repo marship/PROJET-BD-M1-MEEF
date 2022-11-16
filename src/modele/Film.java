@@ -1,10 +1,13 @@
 package modele;
 
-import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+/***********************************/
+/*************** FILM **************/
+/***********************************/
 public class Film {
+
     private String nomFilm;
     private String resumeFilm;
     private String dateSortieFilm;
@@ -99,6 +102,7 @@ public class Film {
         NomPrenomRealisateur = n;
     }
 
+    // Genre
     public void addGenre(Genre g) {
         listeGenre.add(g);
     }
@@ -107,6 +111,7 @@ public class Film {
         return listeGenre;
     }
 
+    // Acteur
     public void addActeur(Personne p) {
         listeActeur.add(p);
     }

@@ -1,6 +1,10 @@
 package modele;
 
+/***********************************/
+/************* PERSONNE ************/
+/***********************************/
 public class Personne {
+
     String nomPersonne;
     String dateNaissance;
     String nationalite;

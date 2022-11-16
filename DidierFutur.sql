@@ -22,23 +22,23 @@ CREATE TABLE REALISATEUR (
     NationnaliteRealisateur varchar2(100),
     constraint REALISATEUR_C1_PK_NomReal primary key (NomPrenomRealisateur)
 );
-INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Jackson', '31/10/1961', 'Neo-Zelandais');
-INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Walt Didier', '05/12/1901', 'Americain');
-INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Coogler', '23/05/1986', 'Americain');
-INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Marsh', '30/04/1963', 'Britannique');
-INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Columbus', '10/09/1958', 'Americain');
-INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Lynch', '20/01/1946', 'Americain');
-INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Kubrick', '26/07/1928', 'Americain');
-INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Fincher', '28/08/1962', 'Americain');
-INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Kurosawa', '23/03/1910', 'Japonais');
-INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Godard', '3/12/1930', 'Franco-suisse');
-INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Kitano', '18/01/1947', 'Japonais');
-INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Leone', '3/01/1929', 'Italien');
-INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Hitchcock', '13/08/1899', 'Britannique');
-INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Malik', '30/11/1943', 'Americain');
-INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Scorsese', '17/11/1942', 'Italo-americain');
-INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Chaplin', '15/04/1889', 'Britannique');
-INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Spielberg', '18/12/1946', 'Americain');
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Jackson', '1961/10/31', 'Neo-Zelandais');
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Walt Didier', '1901/12/05', 'Americain');
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Coogler', '1986/05/23', 'Americain');
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Marsh', '1963/04/30', 'Britannique');
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Columbus', '1958/09/10', 'Americain');
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Lynch', '1946/01/20', 'Americain');
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Kubrick', '1928/07/26', 'Americain');
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Fincher', '1962/08/28', 'Americain');
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Kurosawa', '1910/03/23', 'Japonais');
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Godard', '1930/12/03', 'Franco-suisse');
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Kitano', '1947/01/18', 'Japonais');
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Leone', '19293/01/03', 'Italien');
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Hitchcock', '1899/08/13', 'Britannique');
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Malik', '1943/11/30', 'Americain');
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Scorsese', '1942/11/17', 'Italo-americain');
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Chaplin', '1889/04/15', 'Britannique');
+INSERT INTO REALISATEUR (NomPrenomRealisateur, DateNaissanceRealisateur, NationnaliteRealisateur) VALUES ('Didier Spielberg', '1946/12/18', 'Americain');
 
 /***********************************/
 /************** ACTEUR *************/

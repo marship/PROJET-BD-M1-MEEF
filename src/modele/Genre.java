@@ -1,6 +1,10 @@
 package modele;
 
+/***********************************/
+/*************** GENRE *************/
+/***********************************/
 public class Genre {
+
     String nomGenre;
     String descriptionGenre;
 

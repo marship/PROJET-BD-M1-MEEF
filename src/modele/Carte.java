@@ -1,6 +1,10 @@
 package modele;
 
+/***********************************/
+/************** CARTE **************/
+/***********************************/
 public class Carte {
+
     String nomCarteAbonnement;
     String adresseMailClient;
     int soldeCarteAbonnement;
