@@ -74,7 +74,7 @@ INSERT INTO GENRE (NomGenre, DescriptionGenre) VALUES ('Fantasy', 'Le cinema de 
 INSERT INTO GENRE (NomGenre, DescriptionGenre) VALUES ('Aventure', 'Le film d aventures ou film d aventure (au singulier) est un genre cinematographique caracterise par la presence d un heros fictif ou non, tirant son statut du mythe qu il inspire, l action particuliere qui s y deroule, l emploi de decors particuliers egalement, parfois le decalage temporel par rapport au contemporain ainsi que, parfois, les invraisemblances voulues caracterisant ainsi son excentricite, le tout vehiculant une idee generale de depaysement.');
 INSERT INTO GENRE (NomGenre, DescriptionGenre) VALUES ('Super-heros', 'Un film de super-heros est un sous-genre cinematographique appartenant au genre de la science-fiction, des films d action, ou de la fantasy et mettant en scene les actions d un ou plusieurs super-heros, individus qui possedent des pouvoirs surhumains et s en servent pour proteger la population.');
 INSERT INTO GENRE (NomGenre, DescriptionGenre) VALUES ('Biographique', 'Un film biographique, egalement connu dans le milieu du cinema sous l anglicisme biopic (contraction de « biographical motion picture »), est une œuvre cinematographique de fiction, centree sur la description biographique d un personnage principal qui a reellement existe. Les evenements et l environnement de son epoque sont donc subordonnes a son recit.');
-INSERT INTO GENRE (NomGenre, DescriptionGenre) VALUES ('Comedie', 'La comedie est, au cinema, un genre cinematographique dont une des caracteristiques majeures est l humour.')
+INSERT INTO GENRE (NomGenre, DescriptionGenre) VALUES ('Comedie', 'La comedie est, au cinema, un genre cinematographique dont une des caracteristiques majeures est l humour.');
 INSERT INTO GENRE (NomGenre, DescriptionGenre) VALUES ('Drame', 'Le drame est un genre cinematographique qui traite des situations generalement non epiques dans un contexte serieux, sur un ton plus susceptible d inspirer la tristesse que le rire. Neanmoins, le drame evoque etymologiquement l action.');
 INSERT INTO GENRE (NomGenre, DescriptionGenre) VALUES ('Romance', 'Le film d amour est un film portant sur une histoire d amour ou d aventure amoureuse, mettant en avant la passion, les emotions et l engagement affectif des personnages principaux.');
 INSERT INTO GENRE (NomGenre, DescriptionGenre) VALUES ('Action', 'Le film d action est un genre cinematographique qui met en scene une succession de scenes spectaculaires souvent stereotypees (courses-poursuites, fusillades, explosions…) construites autour d un conflit resolu de maniere violente, generalement par la mort des ennemis du heros. ');
@@ -287,3 +287,54 @@ CREATE TABLE HISTORIQUE (
     constraint HISTORIQUE_C3_FK_Mail foreign key (AdresseMailClient) references CLIENT (AdresseMailClient),
     constraint HISTORIQUE_C4_FK_Support foreign key (TypeSupport) references SUPPORT (TypeSupport)
 );
+
+/***********************************/
+/************** TRIGGER ************/
+/***********************************/
+CREATE OR REPLACE TRIGGER archivageEmprunt
+AFTER DELETE ON EMPRUNT
+FOR EACH ROW
+BEGIN
+	INSERT INTO HISTORIQUE VALUES(:old.DateDebutEmprunt, :old.NomFilm, :old.AdresseMailClient, TO_CHAR(SYSDATE, 'DD/MM/YYYYHH24:MI:SS'), 'Physique');
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER decrementNombreCopie
+AFTER INSERT ON EMPRUNT
+FOR EACH ROW
+BEGIN
+	IF :new.TypeSupport = 'Physique' THEN
+		UPDATE FILM
+		SET NombreExemplaireFilm = NombreExemplaireFilm - 1
+		WHERE NomFilm = :new.NomFilm;
+	END IF;
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER incrementNombreCopie
+AFTER DELETE ON EMPRUNT
+FOR EACH ROW
+BEGIN
+	IF :new.TypeSupport = 'Physique' THEN
+		UPDATE FILM
+		SET NombreExemplaireFilm = NombreExemplaireFilm + 1
+		WHERE NomFilm = :new.NomFilm;
+	END IF;
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER miseAJourWishList
+AFTER INSERT ON EMPRUNT
+FOR EACH ROW
+DECLARE
+	existe integer;
+BEGIN
+	SELECT count(*) into existe from SOUHAIT WHERE AdresseMailClient = :new.AdresseMailClient AND NomFilm = :new.NomFilm;
+	IF existe > 0 THEN
+		DELETE FROM SOUHAIT WHERE AdresseMailClient = :new.AdresseMailClient AND NomFilm = :new.NomFilm;
+	END IF;
+END;
+/
